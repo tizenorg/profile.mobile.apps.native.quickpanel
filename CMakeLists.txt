@@ -93,6 +93,7 @@ INCLUDE_DIRECTORIES(
 INCLUDE(FindPkgConfig)
 pkg_check_modules(pkgs REQUIRED
 	capi-appfw-application
+	capi-appfw-app-manager
 	capi-system-runtime-info
 	capi-system-info
 	capi-system-device

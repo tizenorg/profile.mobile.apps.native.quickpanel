@@ -48,9 +48,6 @@
 #include "animated_image.h"
 #endif
 
-#define LEN_UNIT_TEXTBLOCK 560
-#define QP_DEFAULT_ICON	RESDIR"/quickpanel_icon_default.png"
-
 #ifdef QP_SCREENREADER_ENABLE
 static inline void _check_and_add_to_buffer(Eina_Strbuf *str_buf, const char *text)
 {
@@ -91,8 +88,9 @@ static Evas_Object *_check_duplicated_image_loading(Evas_Object *obj, const char
 	if (old_ic != NULL) {
 		elm_image_file_get(old_ic, &old_ic_path, NULL);
 		if (old_ic_path != NULL) {
-			if (strcmp(old_ic_path, file_path) == 0)
+			if (strcmp(old_ic_path, file_path) == 0) {
 				return old_ic;
+			}
 		}
 
 		elm_object_part_content_unset(obj, part);
@@ -130,88 +128,113 @@ static void _set_icon(Evas_Object *item, notification_h noti)
 	char *thumbnail_path = NULL;
 	char *main_icon_path = NULL;
 	char *sub_icon_path = NULL;
-	char *icon_default = NULL;
 	char *pkgname = NULL;
+	char *res_path = NULL;
+	char shared_icon_path[MAX_FILE_PATH_LEN] = {NULL,};
+	char default_icon_path[MAX_FILE_PATH_LEN] = {NULL,};
+	qp_noti_image_type imageType = QP_NOTI_IMAGE_TYPE_THUMBNAIL;
 
 	retif(item == NULL, , "Invalid parameter!");
 	retif(noti == NULL, , "noti is NULL");
 
 	notification_get_pkgname(noti, &pkgname);
-	notification_get_image(noti, NOTIFICATION_IMAGE_TYPE_THUMBNAIL,
-			&thumbnail_path);
+	notification_get_image(noti, NOTIFICATION_IMAGE_TYPE_THUMBNAIL, &thumbnail_path);
 	notification_get_image(noti, NOTIFICATION_IMAGE_TYPE_ICON, &icon_path);
 	notification_get_image(noti, NOTIFICATION_IMAGE_TYPE_ICON_SUB, &icon_sub_path);
 
+	if (icon_sub_path) {
+		sub_icon_path = strdup(icon_sub_path);
+	}
+
 	if (thumbnail_path != NULL && icon_path != NULL) {
-		main_icon_path = thumbnail_path;
-		sub_icon_path = icon_path;
+		main_icon_path = strdup(thumbnail_path);
+		if (icon_sub_path) {
+			free(icon_sub_path);
+		}
+		sub_icon_path = strdup(icon_path);
 	} else if (icon_path != NULL && thumbnail_path == NULL) {
-		main_icon_path = icon_path;
-		sub_icon_path = icon_sub_path;
+		main_icon_path = strdup(icon_path);
 	} else if (icon_path == NULL && thumbnail_path != NULL) {
-		main_icon_path = thumbnail_path;
-		sub_icon_path = icon_sub_path;
+		main_icon_path = strdup(thumbnail_path);
 	} else {
-		icon_default = quickpanel_common_ui_get_pkginfo_icon(pkgname);
-		main_icon_path = icon_default;
-		sub_icon_path = NULL;
+		main_icon_path = quickpanel_common_ui_get_appinfo_icon(pkgname);
+		if (main_icon_path == NULL) {
+			res_path = app_get_resource_path();
+			snprintf(default_icon_path, sizeof(default_icon_path), "%s%s", res_path, QP_DEFAULT_ICON_NAME);
+			main_icon_path = strdup(default_icon_path);
+		}
+		imageType = QP_NOTI_IMAGE_TYPE_DEFAULT_ICON;
+	}
+
+	if (imageType != QP_NOTI_IMAGE_TYPE_DEFAULT_ICON) {
+		res_path = app_get_shared_resource_path();
+		if (res_path) {
+			snprintf(shared_icon_path, sizeof(shared_icon_path), "%s%s", res_path, QP_SHARED_ICON_FOLDER_NAME);
+			if (!strncmp(main_icon_path, shared_icon_path, strlen(shared_icon_path))) {
+				imageType = QP_NOTI_IMAGE_TYPE_SHARED_ICON;
+			}
+		}
 	}
 
 	if (main_icon_path != NULL) {
-		old_ic = _check_duplicated_image_loading(item,
-				"elm.swallow.thumbnail", main_icon_path);
+		if (imageType == QP_NOTI_IMAGE_TYPE_THUMBNAIL) {
+			old_ic = _check_duplicated_image_loading(item, "elm.swallow.thumbnail", main_icon_path);
+			if (old_ic == NULL) {
 
-		if (old_ic == NULL) {
-			ic = quickpanel_animated_icon_get(item, main_icon_path);
-			if (ic == NULL) {
-				ic = elm_image_add(item);
-				elm_image_resizable_set(ic, EINA_FALSE, EINA_TRUE);
-				elm_image_file_set(ic, main_icon_path, quickpanel_animated_image_get_groupname(main_icon_path));
-#ifdef QP_ANIMATED_IMAGE_ENABLE
-				quickpanel_animated_image_add(ic);
-#endif
+				ic = quickpanel_animated_icon_get(item, main_icon_path);
+				if (ic == NULL) {
+					ic = elm_image_add(item);
+					elm_image_file_set(ic, main_icon_path, quickpanel_animated_image_get_groupname(main_icon_path));
+					elm_image_resizable_set(ic, EINA_FALSE, EINA_TRUE);
+					elm_image_no_scale_set(ic, EINA_TRUE);
 
-				if (!strncmp(main_icon_path, QP_PRELOAD_NOTI_ICON_PATH, strlen(QP_PRELOAD_NOTI_ICON_PATH))) 	{
-					DBG("Apply color theme [%s]", main_icon_path);
-					evas_object_color_set(ic, 155, 216, 226, 255);
-				} else {
-					elm_image_aspect_fixed_set(ic, EINA_TRUE);
+					quickpanel_animated_image_add(ic);
 				}
+				elm_object_part_content_set(item, "elm.swallow.thumbnail", ic);
+				elm_object_signal_emit(item, "mainicon.hide", "prog");
+				elm_object_signal_emit(item, "masking.show", "prog");
 			}
-			elm_object_part_content_set(item, "elm.swallow.thumbnail", ic);
+		} else {
+			old_ic = _check_duplicated_image_loading(item, "elm.swallow.mainicon", main_icon_path);
+			if (old_ic == NULL) {
+
+				ic = quickpanel_animated_icon_get(item, main_icon_path);
+				if (ic == NULL) {
+					ic = elm_image_add(item);
+					elm_image_file_set(ic, main_icon_path, quickpanel_animated_image_get_groupname(main_icon_path));
+					elm_image_resizable_set(ic, EINA_FALSE, EINA_TRUE);
+
+					if (imageType == QP_NOTI_IMAGE_TYPE_SHARED_ICON) {
+						evas_object_color_set(ic, 155, 216, 226, 255);
+					}
+
+					quickpanel_animated_image_add(ic);
+				}
+				elm_object_part_content_set(item, "elm.swallow.mainicon", ic);
+				elm_object_signal_emit(item, "masking.hide", "prog");
+				elm_object_signal_emit(item, "mainicon.show", "prog");
+			}
 		}
 	}
 
 	if (sub_icon_path != NULL) {
-		old_ic = _check_duplicated_image_loading(item,
-				"elm.swallow.icon", sub_icon_path);
-
+		old_ic = _check_duplicated_image_loading(item, "elm.swallow.subicon", sub_icon_path);
 		if (old_ic == NULL) {
+
 			ic = elm_image_add(item);
 			elm_image_resizable_set(ic, EINA_FALSE, EINA_TRUE);
-			elm_image_file_set(ic, sub_icon_path, quickpanel_animated_image_get_groupname(sub_icon_path));
-			elm_object_part_content_set(item, "elm.swallow.icon", ic);
+			elm_image_file_set(ic, sub_icon_path, NULL);
+			elm_object_part_content_set(item, "elm.swallow.subicon", ic);
 			elm_object_signal_emit(item, "elm.icon.bg.show", "elm");
 		}
 	}
 
-	if (main_icon_path == NULL && sub_icon_path == NULL) {
-		old_ic = _check_duplicated_image_loading(item,
-				"elm.swallow.thumbnail", QP_DEFAULT_ICON);
-
-		if (old_ic == NULL) {
-			ic = elm_image_add(item);
-			elm_image_resizable_set(ic, EINA_FALSE, EINA_TRUE);
-			elm_image_file_set(ic, QP_DEFAULT_ICON, quickpanel_animated_image_get_groupname(QP_DEFAULT_ICON));
-			elm_object_part_content_set(item, "elm.swallow.thumbnail", ic);
-#ifdef QP_ANIMATED_IMAGE_ENABLE
-			quickpanel_animated_image_add(ic);
-#endif
-		}
+	if (main_icon_path) {
+		free(main_icon_path);
 	}
 
-	if (icon_default != NULL) {
-		free(icon_default);
+	if (sub_icon_path) {
+		free(sub_icon_path);
 	}
 }
 
@@ -249,9 +272,7 @@ static void _set_text(Evas_Object *item, notification_h noti)
 #endif
 
 	/* Get pkgname & id */
-	noti_err = notification_get_text(noti,
-			NOTIFICATION_TEXT_TYPE_TITLE,
-			&text);
+	noti_err = notification_get_text(noti, NOTIFICATION_TEXT_TYPE_TITLE, &text);
 
 	if (noti_err == NOTIFICATION_ERROR_NONE && text != NULL) {
 		quickpanel_common_util_char_replace(text, _NEWLINE, _SPACE);
@@ -261,9 +282,7 @@ static void _set_text(Evas_Object *item, notification_h noti)
 #endif
 	}
 
-	noti_err = notification_get_text(noti,
-			NOTIFICATION_TEXT_TYPE_EVENT_COUNT,
-			&text);
+	noti_err = notification_get_text(noti, NOTIFICATION_TEXT_TYPE_EVENT_COUNT, &text);
 
 	if (noti_err == NOTIFICATION_ERROR_NONE && text != NULL) {
 		quickpanel_common_util_char_replace(text, _NEWLINE, _SPACE);
@@ -278,9 +297,8 @@ static void _set_text(Evas_Object *item, notification_h noti)
 #endif
 	}
 
-	noti_err = notification_get_text(noti,
-			NOTIFICATION_TEXT_TYPE_CONTENT,
-			&text);
+	noti_err = notification_get_text(noti, NOTIFICATION_TEXT_TYPE_CONTENT, &text);
+
 	if (noti_err == NOTIFICATION_ERROR_NONE && text != NULL) {
 		quickpanel_common_util_char_replace(text, _NEWLINE, _SPACE);
 		_set_text_to_part(item, "elm.text.content", text);
@@ -290,9 +308,11 @@ static void _set_text(Evas_Object *item, notification_h noti)
 	}
 
 	noti_err = notification_get_time(noti, &noti_time);
+
 	if (noti_time == 0.0) {
 		noti_err = notification_get_insert_time(noti, &noti_time);
 	}
+
 	if (noti_err == NOTIFICATION_ERROR_NONE) {
 		quickpanel_noti_util_get_time(noti_time, buf, 512);
 		_set_text_to_part(item, "elm.text.time", buf);
@@ -305,6 +325,7 @@ static void _set_text(Evas_Object *item, notification_h noti)
 		elm_object_signal_emit(item, "content.short", "prog");
 		elm_object_signal_emit(item, "count.show", "prog");
 	}
+
 	if (elm_object_part_text_get(item, "elm.text.time") != NULL) {
 		elm_object_signal_emit(item, "title.short", "prog");
 	}
@@ -356,7 +377,7 @@ static Evas_Object *_create(notification_h noti, Evas_Object *parent)
 		quickpanel_uic_initial_resize(view, view_height);
 		evas_object_show(view);
 	} else {
-		ERR("failed to create ongoing notification view");
+		ERR("failed to create single notification view");
 	}
 
 	return view;
