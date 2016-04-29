@@ -19,6 +19,15 @@
 #ifndef _QP_NOTI_UTIL_DEF_
 #define _QP_NOTI_UTIL_DEF_
 
+typedef enum _qp_noti_image_type {
+	QP_NOTI_IMAGE_TYPE_THUMBNAIL,
+	QP_NOTI_IMAGE_TYPE_DEFAULT_ICON,
+	QP_NOTI_IMAGE_TYPE_SHARED_ICON,
+} qp_noti_image_type;
+
+#define QP_SHARED_ICON_FOLDER_NAME "noti_icons"
+#define QP_DEFAULT_ICON_NAME	"quickpanel_icon_default.png"
+
 extern int quickpanel_noti_util_get_event_count_from_noti(notification_h noti);
 extern int quickpanel_noti_util_get_event_count_by_pkgname(const char *pkgname);
 extern char *quickpanel_noti_util_get_time(time_t t, char *buf, int buf_len);

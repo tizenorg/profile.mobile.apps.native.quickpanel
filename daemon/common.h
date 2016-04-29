@@ -151,5 +151,6 @@ extern void *quickpanel_common_ui_get_buffer_from_image(const char *file_path, s
 extern char *quickpanel_common_ui_get_pkginfo_icon(const char *pkgid);
 extern char *quickpanel_common_ui_get_pkginfo_label(const char *pkgid);
 extern int quickpanel_common_ui_is_package_exist(const char *pkgid);
+extern char *quickpanel_common_ui_get_appinfo_icon(const char *pkgid);
 
 #endif				/* __QP_COMMON_H_ */
