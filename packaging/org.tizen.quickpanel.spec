@@ -56,6 +56,7 @@ BuildRequires: pkgconfig(alarm-service)
 BuildRequires: pkgconfig(ecore-wayland)
 BuildRequires: pkgconfig(voice-control-setting)
 BuildRequires: pkgconfig(tzsh-quickpanel-service)
+BuildRequires: pkgconfig(capi-appfw-app-manager)
 BuildRequires: gettext-tools
 BuildRequires: cmake
 BuildRequires: edje-tools

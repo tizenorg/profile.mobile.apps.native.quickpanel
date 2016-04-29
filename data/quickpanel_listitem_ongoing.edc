@@ -454,18 +454,46 @@
 					min: BOX_ICON_SIZE_W BOX_ICON_SIZE_H;
 					max: BOX_ICON_BG_SIZE_W BOX_ICON_BG_SIZE_H;
 					rel1 {
-						relative: 0.5 0.5;
 						to: "elm.rect.thumbnail";
 					}
 					rel2 {
-						relative: 0.5 0.5;
 						to: "elm.rect.thumbnail";
 					}
 					align: 0.5 0.5;
 				}
 			}
 			part {
-				name: "elm.swallow.icon";
+				name: "elm.swallow.mainicon";
+				type: SWALLOW;
+				mouse_events: 0;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: BOX_ICON_SIZE_W BOX_ICON_SIZE_H;
+					max: BOX_ICON_BG_SIZE_W BOX_ICON_BG_SIZE_H;
+					fixed: 1 1;
+					rel1 {
+						to: "elm.rect.thumbnail";
+					}
+					rel2 {
+						to: "elm.rect.thumbnail";
+					}
+					align: 0.5 0.5;
+				}
+				description {
+					state: "show" 0.0;
+					inherit: "default" 0.0;
+					visible:1;
+				}
+				description {
+					state: "hide" 0.0;
+					inherit: "default" 0.0;
+					visible:0;
+				}
+			}
+
+			part {
+				name: "elm.swallow.subicon";
 				type: SWALLOW;
 				mouse_events: 0;
 				scale: 1;
@@ -704,7 +732,20 @@
 				action: STATE_SET "hide" 0.0;
 				target: "elm.text.count";
 			}
-
+			program{
+				name: "mainicon.show";
+				signal: "mainicon.show";
+				source: "prog";
+				action: STATE_SET "show" 0.0;
+				target: "elm.swallow.mainicon";
+			}
+			program{
+				name: "mainicon.hide";
+				signal: "mainicon.hide";
+				source: "prog";
+				action: STATE_SET "hide" 0.0;
+				target: "elm.swallow.mainicon";
+			}
 		}
 	}
 
@@ -1126,17 +1167,26 @@
 				precise_is_inside: 1;
 				description {
 					state: "default" 0.0;
-					min: BOX_ICON_BG_SIZE_W BOX_ICON_BG_SIZE_W;
+					min: BOX_ICON_SIZE_W BOX_ICON_SIZE_W;
+					max: BOX_ICON_BG_SIZE_W BOX_ICON_BG_SIZE_H;
 					fixed : 1 1;
 					rel1 {
-						relative: 0.5 0.5;
 						to: "elm.rect.thumbnail";
 					}
 					rel2 {
-						relative: 0.5 0.5;
 						to: "elm.rect.thumbnail";
 					}
 					image.normal: "quick_button_icon_bg.png";
+				}
+				description {
+					state: "show" 0.0;
+					inherit: "default" 0.0;
+					visible:1;
+				}
+				description {
+					state: "hide" 0.0;
+					inherit: "default" 0.0;
+					visible:0;
 				}
 			}
 			part {
@@ -1148,27 +1198,54 @@
 				description {
 					state: "default" 0.0;
 					min: BOX_ICON_SIZE_W BOX_ICON_SIZE_W;
-					max: BOX_ICON_BG_SIZE_W BOX_ICON_BG_SIZE_W;
+					max: BOX_ICON_BG_SIZE_W BOX_ICON_BG_SIZE_H;
 					fixed: 1 1;
 					rel1 {
-						relative: 0.5 0.5;
 						to: "elm.rect.thumbnail";
 					}
 					rel2 {
-						relative: 0.5 0.5;
 						to: "elm.rect.thumbnail";
 					}
 					align: 0.5 0.5;
 				}
 			}
 			part {
-				name: "elm.swallow.icon";
+				name: "elm.swallow.mainicon";
 				type: SWALLOW;
 				mouse_events: 0;
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					min: BOX_ICON_SIZE_W BOX_ICON_SIZE_W;
+					min: BOX_ICON_SIZE_W BOX_ICON_SIZE_H;
+					max: BOX_ICON_BG_SIZE_W BOX_ICON_BG_SIZE_H;
+					fixed: 1 1;
+					rel1 {
+						to: "elm.rect.thumbnail";
+					}
+					rel2 {
+						to: "elm.rect.thumbnail";
+					}
+					align: 0.5 0.5;
+				}
+				description {
+					state: "show" 0.0;
+					inherit: "default" 0.0;
+					visible:1;
+				}
+				description {
+					state: "hide" 0.0;
+					inherit: "default" 0.0;
+					visible:0;
+				}
+			}
+			part {
+				name: "elm.swallow.subicon";
+				type: SWALLOW;
+				mouse_events: 0;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 30 30;
 					fixed: 1 1;
 					rel1 {
 						relative: 0.5 0.5;
@@ -1333,6 +1410,34 @@
 				source: "prog";
 				action: STATE_SET "move.center" 0.0;
 				target: "elm.rect.text.title";
+			}
+			program{
+				name: "masking.show";
+				signal: "masking.show";
+				source: "prog";
+				action: STATE_SET "show" 0.0;
+				target: "masking";
+			}
+			program{
+				name: "masking.hide";
+				signal: "masking.hide";
+				source: "prog";
+				action: STATE_SET "hide" 0.0;
+				target: "masking";
+			}
+			program{
+				name: "mainicon.show";
+				signal: "mainicon.show";
+				source: "prog";
+				action: STATE_SET "show" 0.0;
+				target: "elm.swallow.mainicon";
+			}
+			program{
+				name: "mainicon.hide";
+				signal: "mainicon.hide";
+				source: "prog";
+				action: STATE_SET "hide" 0.0;
+				target: "elm.swallow.mainicon";
 			}
 		}
 	}

@@ -715,7 +715,7 @@ static Evas_Object *_activenoti_create_icon(Evas_Object *parent, notification_h 
 			pkgname = NULL;
 			ret = notification_get_pkgname(noti, &pkgname);
 			if (ret == NOTIFICATION_ERROR_NONE && pkgname != NULL) {
-				icon_path = quickpanel_common_ui_get_pkginfo_icon(pkgname);
+				icon_path = quickpanel_common_ui_get_appinfo_icon(pkgname);
 				DBG("default_pkgicon_path :  %s", icon_path);
 			}
 
