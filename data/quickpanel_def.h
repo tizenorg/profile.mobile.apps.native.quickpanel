@@ -99,10 +99,10 @@
 
 #define BOX_PART_ICON "object.icon"
 #define BOX_PART_ICON_SUB "object.icon.sub"
-#define BOX_ICON_BG_SIZE_W 96
-#define BOX_ICON_BG_SIZE_H 96
-#define BOX_ICON_SIZE_W 96
-#define BOX_ICON_SIZE_H 96
+#define BOX_ICON_BG_SIZE_W 70
+#define BOX_ICON_BG_SIZE_H 70
+#define BOX_ICON_SIZE_W 70
+#define BOX_ICON_SIZE_H 70
 #define BOX_ICON_SUB_SIZE_W 29 //44
 #define BOX_ICON_SUB_SIZE_H 29 //44
 #define BOX_TEXT_TOP_PADDING 15

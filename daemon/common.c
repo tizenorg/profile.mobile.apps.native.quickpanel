@@ -21,7 +21,7 @@
 #include <unistd.h>
 
 #include <Elementary.h>
-
+#include <app_manager.h>
 #include <package_manager.h>
 #include <tzsh.h>
 #include <tzsh_quickpanel_service.h>
@@ -318,6 +318,37 @@ err:
 		fclose(fp);
 	}
 	return buffer;
+}
+
+HAPI char *quickpanel_common_ui_get_appinfo_icon(const char *pkgid)
+{
+	int ret = 0;
+	char *icon_path = NULL;
+	char *icon_ret = NULL;
+	app_info_h app_info;
+
+	retif(pkgid == NULL, NULL, "Invalid parameter!");
+
+	ret = app_info_create(pkgid, &app_info);
+	if (ret != APP_MANAGER_ERROR_NONE) {
+		ERR("app_info_create for %s failed %d", pkgid, ret);
+		return NULL;
+	}
+
+	ret = app_info_get_icon(app_info, &icon_path);
+	if (ret != APP_MANAGER_ERROR_NONE) {
+		app_info_destroy(app_info);
+		ERR("app_info_get_icon is failed %d", ret);
+		return NULL;
+	}
+
+	if (icon_path) {
+		icon_ret = (char*)strdup(icon_path);
+	}
+
+	app_info_destroy(app_info);
+
+	return icon_ret;
 }
 
 HAPI char *quickpanel_common_ui_get_pkginfo_icon(const char *pkgid)
