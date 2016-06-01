@@ -939,7 +939,7 @@ static void _button_press_cb(void *data, Evas_Object *obj, const char *emission,
 	int ret = APP_CONTROL_ERROR_NONE;
 
 	ret = app_control_send_launch_request(app_control, NULL, NULL);
-	DBG("app_control_send_launch_request return [%s]", ret);
+	DBG("app_control_send_launch_request return [%d]", ret);
 
 	_activenoti_hide(NULL, 1);
 }
