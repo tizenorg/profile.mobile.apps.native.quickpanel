@@ -24,6 +24,7 @@
 #include <tzsh.h>
 #include <tzsh_quickpanel_service.h>
 #include <E_DBus.h>
+#include <dpm/restriction.h>
 
 #include "common.h"
 #include "quickpanel-ui.h"
@@ -70,10 +71,33 @@ static void _long_press_cb(void *data)
 #endif
 }
 
-static void _syspopup_launch(int is_on)
+static void _gps_syspopup_launch(int is_on)
 {
 	syspopup_launch(PACKAGE_SYSPOPUP, NULL);
 }
+
+static void _dpm_syspopup_launch(void)
+{
+	app_control_h service = NULL;
+	int ret = APP_CONTROL_ERROR_NONE;
+
+	ret = app_control_create(&service);
+	if (ret != APP_CONTROL_ERROR_NONE) {
+		ERR("Failed to create app_control[%d]", ret);
+		return;
+	}
+
+	app_control_add_extra_data(service, "id", "location");
+	app_control_set_app_id(service, "org.tizen.dpm-syspopup");
+
+	ret = app_control_send_launch_request(service, NULL, NULL);
+	if (ret != APP_CONTROL_ERROR_NONE) {
+		ERR("Failed to send launch request[%d]", ret);
+	}
+
+	app_control_destroy(service);
+}
+
 
 static void _view_update(Evas_Object *view, int state, int flag_extra_1, int flag_extra_2)
 {
@@ -130,14 +154,46 @@ static void _mouse_clicked_cb(void *data, Evas_Object *obj, const char *emission
 	int ret = 0;
 	bool enable = 0;
 	QP_Module_Setting *module = (QP_Module_Setting *)data;
+
+	int dpm_location_state = 0;
+	dpm_context_h context = NULL;
+	dpm_restriction_policy_h policy = NULL;
+
 	retif(module == NULL, , "Invalid parameter!");
 
 	if (quickpanel_setting_module_is_icon_clickable(module) == 0) {
 		return;
 	}
 
+	context = dpm_context_create();
+	if (context == NULL) {
+		ERR("dpm_context_create() is failed");
+		return;
+	}
+
+	policy = dpm_context_acquire_restriction_policy(context);
+	if (policy == NULL) {
+		ERR("dpm_context_acquire_restriction_policy() is failed");
+		dpm_context_destroy(context);
+		return;
+	}
+
+	ret = dpm_restriction_get_location_state(policy, &dpm_location_state);
+
+	dpm_context_release_restriction_policy(context, policy);
+	dpm_context_destroy(context);
+
+	if (ret != DPM_ERROR_NONE) {
+		ERR("dpm_restriction_get_location_state() is failed");
+		return ;
+	}
+
 	if (quickpanel_setting_module_icon_state_get(module) == ICON_VIEW_STATE_OFF) {
-		_syspopup_launch(quickpanel_setting_module_icon_state_get(module));
+		if (dpm_location_state == 0) {
+			_dpm_syspopup_launch();
+		} else {
+			_gps_syspopup_launch(quickpanel_setting_module_icon_state_get(module));
+		}
 	} else {
 		// Use my location off
 		ret = location_manager_is_enabled_method(LOCATIONS_METHOD_HYBRID, &enable);
