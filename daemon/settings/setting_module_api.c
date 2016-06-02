@@ -20,6 +20,8 @@
 #include <tzsh.h>
 #include <tzsh_quickpanel_service.h>
 #include <E_DBus.h>
+#include <dpm/restriction.h>
+#include <app_control.h>
 
 #include "common.h"
 #include "quickpanel_def.h"
@@ -293,3 +295,74 @@ HAPI void quickpanel_setting_module_icon_destroy(QP_Module_Setting *module, Evas
 	evas_object_del(icon);
 	icon = NULL;
 }
+
+
+HAPI void quickpanel_setting_module_syspopup_launch(char *appid, char *key, char *value) {
+	app_control_h service = NULL;
+	int ret = APP_CONTROL_ERROR_NONE;
+
+	retif(appid == NULL, , "Invalid parameter!");
+
+	ret = app_control_create(&service);
+	if (ret != APP_CONTROL_ERROR_NONE) {
+		ERR("Failed to create app_control[%d]", ret);
+		return;
+	}
+
+	if (key != NULL && value != NULL) {
+		app_control_add_extra_data(service, key, value);
+	}
+
+	app_control_set_app_id(service, appid);
+
+	ret = app_control_send_launch_request(service, NULL, NULL);
+	if (ret != APP_CONTROL_ERROR_NONE) {
+		ERR("Failed to send launch request[%d]", ret);
+	}
+	app_control_destroy(service);
+}
+
+
+HAPI int quickpanel_setting_module_dpm_state_get(char *module_name, int *state) {
+	int dpm_state = 0;
+	int ret = 0;
+
+	dpm_context_h context = NULL;
+	dpm_restriction_policy_h policy = NULL;
+
+	retif(module_name == NULL, 0, "Invalid parameter!");
+
+	context = dpm_context_create();
+	if (context == NULL) {
+		ERR("dpm_context_create() is failed");
+		return 0;
+	}
+
+	policy = dpm_context_acquire_restriction_policy(context);
+	if (policy == NULL) {
+		ERR("dpm_context_acquire_restriction_policy() is failed");
+		dpm_context_destroy(context);
+		return 0;
+	}
+
+	if (strncmp(module_name, "gps", strlen(module_name)) == 0) {
+		ret = dpm_restriction_get_location_state(policy, &dpm_state);
+	} else if (strncmp(module_name, "bluetooth", strlen(module_name)) == 0) {
+		ret = dpm_restriction_get_bluetooth_mode_change_state(policy, &dpm_state);
+	} else if (strncmp(module_name,"wifi", strlen(module_name)) == 0) {
+		ret = dpm_restriction_get_wifi_state(policy, &dpm_state);
+	}
+
+	dpm_context_release_restriction_policy(context, policy);
+	dpm_context_destroy(context);
+
+	if (ret != DPM_ERROR_NONE) {
+		ERR("dpm_restriction_get_[%s]_state() is failed", module_name);
+		return 0;
+	}
+
+	*state = dpm_state;
+
+	return 1;
+}
+

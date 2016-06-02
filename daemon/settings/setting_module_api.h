@@ -27,6 +27,8 @@
 #define FLAG_TURN_ON 1
 #define FLAG_TURN_OFF 0
 
+#define DPM_SYSPOPUP "org.tizen.dpm-syspopup"
+
 typedef enum _qp_setting_icon_container_type {
 	QP_SETTING_ICON_CONTAINER_NONE = -1,
 	QP_SETTING_ICON_CONTAINER_FEATURED = 0,
@@ -47,7 +49,9 @@ extern void quickpanel_setting_module_icon_timer_add(QP_Module_Setting *module);
 extern void quickpanel_setting_module_icon_timer_del(QP_Module_Setting *module);
 extern void quickpanel_setting_module_progress_mode_set(QP_Module_Setting *module, int is_enable, int is_request_on);
 extern void quickpanel_setting_module_icon_destroy(QP_Module_Setting *module, Evas_Object *icon);
-
 extern QP_Module_Setting *quickpanel_setting_module_get_from_icon(Evas_Object *icon);
+extern void quickpanel_setting_module_syspopup_launch(char *appid, char *key, char *value);
+extern int quickpanel_setting_module_dpm_state_get(char *module_name, int *state);
+
 
 #endif /* __SETTING_MODULE_API_H__ */

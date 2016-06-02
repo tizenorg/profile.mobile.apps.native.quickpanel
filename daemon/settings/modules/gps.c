@@ -70,7 +70,7 @@ static void _long_press_cb(void *data)
 #endif
 }
 
-static void _syspopup_launch(int is_on)
+static void _gps_syspopup_launch(int is_on)
 {
 	syspopup_launch(PACKAGE_SYSPOPUP, NULL);
 }
@@ -130,14 +130,25 @@ static void _mouse_clicked_cb(void *data, Evas_Object *obj, const char *emission
 	int ret = 0;
 	bool enable = 0;
 	QP_Module_Setting *module = (QP_Module_Setting *)data;
+	int dpm_state = 0;
+
 	retif(module == NULL, , "Invalid parameter!");
 
 	if (quickpanel_setting_module_is_icon_clickable(module) == 0) {
 		return;
 	}
 
+	if (quickpanel_setting_module_dpm_state_get(module->name, &dpm_state) == 0) {
+		return;
+	}
+
+	if (dpm_state == 0) {
+		quickpanel_setting_module_syspopup_launch(DPM_SYSPOPUP, "id", "location");
+		return;
+	}
+
 	if (quickpanel_setting_module_icon_state_get(module) == ICON_VIEW_STATE_OFF) {
-		_syspopup_launch(quickpanel_setting_module_icon_state_get(module));
+		_gps_syspopup_launch(quickpanel_setting_module_icon_state_get(module));
 	} else {
 		// Use my location off
 		ret = location_manager_is_enabled_method(LOCATIONS_METHOD_HYBRID, &enable);

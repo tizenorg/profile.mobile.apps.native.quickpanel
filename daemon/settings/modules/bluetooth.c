@@ -122,10 +122,20 @@ static void _mouse_clicked_cb(void *data, Evas_Object *obj, const char *emission
 {
 	int ret;
 	int is_on = 0;
+	int dpm_state = 0;
 	QP_Module_Setting *module = (QP_Module_Setting *)data;
 	retif(module == NULL, , "Invalid parameter!");
 
 	if (quickpanel_setting_module_is_icon_clickable(module) == 0) {
+		return;
+	}
+
+	if (quickpanel_setting_module_dpm_state_get(module->name, &dpm_state) == 0) {
+		return;
+	}
+
+	if (dpm_state == 0) {
+		quickpanel_setting_module_syspopup_launch(DPM_SYSPOPUP, "id", "bluetooth");
 		return;
 	}
 

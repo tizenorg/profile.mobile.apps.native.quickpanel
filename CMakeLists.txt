@@ -129,6 +129,7 @@ pkg_check_modules(pkgs REQUIRED
 	alarm-service
 	voice-control-setting
 	tzsh-quickpanel-service	
+	dpm
 )
 
 FOREACH(flag ${pkgs_CFLAGS} ${x11_pkgs_CFLAGS})
