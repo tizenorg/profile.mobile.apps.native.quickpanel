@@ -26,6 +26,7 @@
 #include <notification_internal.h>
 #include <notification_list.h>
 #include <notification_ongoing_flag.h>
+#include <notification_ongoing.h>
 #include <system_settings.h>
 #include <tzsh.h>
 #include <tzsh_quickpanel_service.h>
@@ -59,18 +60,11 @@
 #include "emergency_mode.h"
 #endif
 
-#define QP_NOTI_ONGOING_DBUS_PATH	"/dbus/signal"
-#define QP_NOTI_ONGOING_DBUS_INTERFACE	"notification.ongoing"
-
 static struct _info {
 	noti_node   *noti_node;
 	Evas_Object *ongoing_noti_section_view;
 	Evas_Object *noti_section_view;
 	Evas_Object *noti_box;
-
-	E_DBus_Signal_Handler *dbus_handler_size;
-	E_DBus_Signal_Handler *dbus_handler_progress;
-	E_DBus_Signal_Handler *dbus_handler_content;
 
 	struct tm last_time;
 
@@ -80,10 +74,6 @@ static struct _info {
 	.ongoing_noti_section_view = NULL,
 	.noti_section_view = NULL,
 	.noti_box = NULL,
-
-	.dbus_handler_size = NULL,
-	.dbus_handler_progress = NULL,
-	.dbus_handler_content = NULL,
 
 	.is_ongoing_hided = 0,
 
@@ -190,119 +180,6 @@ static void _update_progressbar(void *data, notification_h update_noti)
 	retif(node->view == NULL, , "fail to find %p", node->view);
 
 	quickpanel_noti_listbox_update_item(ad->list, node->view);
-}
-
-static void _item_progress_update_cb(void *data, DBusMessage *msg)
-{
-	DBusError err;
-	char *pkgname = 0;
-	int priv_id = 0;
-	double progress = 0;
-	notification_h noti = NULL;
-
-	retif(data == NULL || msg == NULL, , "Invalid parameter!");
-
-	dbus_error_init(&err);
-	dbus_message_get_args(msg, &err,
-			DBUS_TYPE_STRING, &pkgname,
-			DBUS_TYPE_INT32, &priv_id,
-			DBUS_TYPE_DOUBLE, &progress,
-			DBUS_TYPE_INVALID);
-
-	if (dbus_error_is_set(&err)) {
-		ERR("dbus err: %s", err.message);
-		dbus_error_free(&err);
-		return;
-	}
-
-	if (pkgname == NULL) {
-		ERR("pkgname is null");
-		return;
-	}
-
-	/* check item on the list */
-	noti = _update_item_progress(pkgname, priv_id, progress);
-	retif(noti == NULL, , "Can not found noti data.");
-
-	SDBG("pkgname[%s], priv_id[%d], progress[%lf]",	pkgname, priv_id, progress);
-	_update_progressbar(data, noti);
-}
-
-static void _item_size_update_cb(void *data, DBusMessage * msg)
-{
-	DBusError err;
-	char *pkgname = 0;
-	int priv_id = 0;
-	double size = 0;
-	notification_h noti = NULL;
-
-	retif(data == NULL || msg == NULL, , "Invalid parameter!");
-
-	dbus_error_init(&err);
-	dbus_message_get_args(msg, &err,
-			DBUS_TYPE_STRING, &pkgname,
-			DBUS_TYPE_INT32, &priv_id,
-			DBUS_TYPE_DOUBLE, &size, DBUS_TYPE_INVALID);
-	if (dbus_error_is_set(&err)) {
-		ERR("dbus err: %s", err.message);
-		dbus_error_free(&err);
-		return;
-	}
-
-	if (pkgname == NULL) {
-		ERR("pkgname is null");
-		return;
-	}
-
-	/* check item on the list */
-	noti = _update_item_size(pkgname, priv_id, size);
-	retif(noti == NULL, , "Can not found noti data.");
-
-	SDBG("pkgname[%s], priv_id[%d], progress[%lf]",
-			pkgname, priv_id, size);
-
-	_update_progressbar(data, noti);
-}
-
-static void _item_content_update_cb(void *data, DBusMessage *msg)
-{
-	DBusError err;
-	char *pkgname = NULL;
-	int priv_id = 0;
-	char *content = NULL;
-	notification_h noti = NULL;
-
-	retif(data == NULL || msg == NULL, , "Invalid parameter!");
-
-	dbus_error_init(&err);
-	dbus_message_get_args(msg, &err,
-			DBUS_TYPE_STRING, &pkgname,
-			DBUS_TYPE_INT32, &priv_id,
-			DBUS_TYPE_STRING, &content, DBUS_TYPE_INVALID);
-
-	if (pkgname == NULL) {
-		ERR("pkgname  is null");
-		return;
-	}
-	if (content == NULL) {
-		ERR("content is null");
-		return;
-	}
-
-	if (dbus_error_is_set(&err)) {
-		ERR("dbus err: %s", err.message);
-		dbus_error_free(&err);
-		return;
-	}
-
-	SDBG("pkgname[%s], priv_id[%d], content[%s]",
-			pkgname, priv_id, content);
-
-	/* check item on the list */
-	noti = _update_item_content(pkgname, priv_id, content);
-	retif(noti == NULL, , "Can not found noti data.");
-
-	_update_progressbar(data, noti);
 }
 
 static int _is_item_deletable(notification_h noti)
@@ -1020,12 +897,44 @@ static void _update_sim_status_cb(keynode_t *node, void *data)
 	}
 }
 
+void _ongoing_item_update_cb(struct ongoing_info_s *ongoing_info, void *data)
+{
+	notification_h noti = NULL;
+
+	retif(data == NULL, , "Invalid parameter!");
+	retif(ongoing_info == NULL, , "Invalid parameter!");
+	retif(ongoing_info->pkgname == NULL, , "Invalid parameter!");
+
+	DBG("pkgname [%s] type [%d]", ongoing_info->pkgname, ongoing_info->type);
+
+	if (ongoing_info->type == ONGOING_TYPE_PROGRESS) {
+		noti = _update_item_progress(ongoing_info->pkgname, ongoing_info->priv_id, ongoing_info->progress);
+	} else if(ongoing_info->type == ONGOING_TYPE_SIZE) {
+		noti = _update_item_size(ongoing_info->pkgname, ongoing_info->priv_id, ongoing_info->size);
+	} else if(ongoing_info->type == ONGOING_TYPE_CONTENT) {
+		noti = _update_item_content(ongoing_info->pkgname, ongoing_info->priv_id, ongoing_info->content);
+	}
+
+	retif(noti == NULL, , "Can not found noti data.");
+
+	_update_progressbar(data, noti);
+}
+
 static Eina_Bool _noti_callback_register_idler_cb(void *data)
 {
 	struct appdata *ad = data;
+	int ret = NOTIFICATION_ERROR_NONE;
 	retif(ad == NULL, EINA_FALSE, "Invalid parameter!");
 
-	notification_register_detailed_changed_cb(_detailed_changed_cb, ad);
+	ret = notification_register_detailed_changed_cb(_detailed_changed_cb, ad);
+	if ( ret != NOTIFICATION_ERROR_NONE) {
+		DBG("notification_register_detailed_changed_cb error [%d]", ret);
+	}
+
+	ret = notification_ongoing_update_cb_set(_ongoing_item_update_cb, ad);
+	if ( ret != NOTIFICATION_ERROR_NONE) {
+		DBG("notification_ongoing_update_cb_set error [%d]", ret);
+	}
 
 	return EINA_FALSE;
 }
@@ -1034,37 +943,6 @@ static int _register_event_handler(struct appdata *ad)
 {
 	int ret = 0;
 	retif(ad == NULL, QP_FAIL, "Invalid parameter!");
-	retif(ad->dbus_connection == NULL, QP_FAIL, "Invalid parameter!");
-
-	s_info.dbus_handler_size =
-		e_dbus_signal_handler_add(ad->dbus_connection, NULL,
-				QP_NOTI_ONGOING_DBUS_PATH,
-				QP_NOTI_ONGOING_DBUS_INTERFACE, "update_progress",
-				_item_progress_update_cb,
-				ad);
-	if (s_info.dbus_handler_size == NULL) {
-		ERR("fail to add size signal");
-	}
-
-	s_info.dbus_handler_progress =
-		e_dbus_signal_handler_add(ad->dbus_connection, NULL,
-				QP_NOTI_ONGOING_DBUS_PATH,
-				QP_NOTI_ONGOING_DBUS_INTERFACE, "update_size",
-				_item_size_update_cb,
-				ad);
-	if (s_info.dbus_handler_progress == NULL) {
-		ERR("fail to add progress signal");
-	}
-
-	s_info.dbus_handler_content =
-		e_dbus_signal_handler_add(ad->dbus_connection, NULL,
-				QP_NOTI_ONGOING_DBUS_PATH,
-				QP_NOTI_ONGOING_DBUS_INTERFACE, "update_content",
-				_item_content_update_cb,
-				ad);
-	if (s_info.dbus_handler_content == NULL) {
-		ERR("fail to add content signal");
-	}
 
 	/* Notify vconf key */
 	ret = vconf_notify_key_changed(VCONFKEY_TELEPHONY_SIM_SLOT, _update_sim_status_cb, (void *)ad);
@@ -1082,7 +960,11 @@ static int _unregister_event_handler(struct appdata *ad)
 {
 	int ret = 0;
 	retif(ad == NULL, QP_FAIL, "Invalid parameter!");
-	retif(ad->dbus_connection == NULL, QP_FAIL, "Invalid parameter!");
+
+	ret = notification_ongoing_update_cb_unset();
+	if ( ret != NOTIFICATION_ERROR_NONE) {
+		DBG("notification_ongoing_update_cb_unset error [%d]", ret);
+	}
 
 	/* Unregister notification changed cb */
 	notification_unregister_detailed_changed_cb(_detailed_changed_cb, (void *)ad);
@@ -1090,20 +972,6 @@ static int _unregister_event_handler(struct appdata *ad)
 	ret = vconf_ignore_key_changed(VCONFKEY_TELEPHONY_SIM_SLOT, _update_sim_status_cb);
 	if (ret != 0) {
 		ERR("Failed to ignore SIM_SLOT change callback!");
-	}
-
-	/* Delete dbus signal */
-	if (s_info.dbus_handler_size != NULL) {
-		e_dbus_signal_handler_del(ad->dbus_connection, s_info.dbus_handler_size);
-		s_info.dbus_handler_size = NULL;
-	}
-	if (s_info.dbus_handler_progress != NULL) {
-		e_dbus_signal_handler_del(ad->dbus_connection, s_info.dbus_handler_progress);
-		s_info.dbus_handler_progress = NULL;
-	}
-	if (s_info.dbus_handler_content != NULL) {
-		e_dbus_signal_handler_del(ad->dbus_connection, s_info.dbus_handler_content);
-		s_info.dbus_handler_content = NULL;
 	}
 
 	return QP_OK;
