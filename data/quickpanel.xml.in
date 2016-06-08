@@ -6,6 +6,7 @@
 	<description>@PROJECT_NAME@</description>
 	<ui-application appid="@PKGNAME@" exec="@BINDIR@/@PROJECT_NAME@" nodisplay="true" multiple="false" type="capp" taskmanage="false" process-pool="true" hw-acceleration="on">
 		<label>@PROJECT_NAME@</label>
+		<background-category value="system"/>
 	</ui-application>
 	<privileges>
 		<privilege>http://tizen.org/privilege/appmanager.launch</privilege>
