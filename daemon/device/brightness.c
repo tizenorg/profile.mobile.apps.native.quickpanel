@@ -48,9 +48,6 @@
 
 #define BRIGHTNESS_MIN 1
 #define BRIGHTNESS_MAX 100
-#define BRIGHTNESS_SIG_ACTIVITY "BRIGHTNESS"
-#define PREF_BRIGHTNESS_ON "ON"
-#define PREF_BRIGHTNESS_OFF "OFF"
 
 typedef struct _brightness_ctrl_obj {
 	int min_level;
@@ -67,8 +64,6 @@ typedef struct _brightness_ctrl_obj {
 
 
 int slider_drag_start = -1;
-Eina_Bool is_sliding = EINA_FALSE;
-
 
 static int _init(void *data);
 static int _fini(void *data);
@@ -98,7 +93,6 @@ QP_Module brightness_ctrl = {
 };
 
 static brightness_ctrl_obj *g_ctrl_obj;
-E_DBus_Signal_Handler *g_hdl_brightness;
 
 static Evas_Object *_controller_view_get(void)
 {
@@ -312,13 +306,12 @@ static void _brightness_ctrl_slider_delayed_changed_cb(void *data, Evas_Object *
 
 static void _brightness_slider_drag_start_cb(void *data, Evas_Object *obj, void *event_info)
 {
-	is_sliding = EINA_TRUE;
 	slider_drag_start = _brightness_get_level();
 }
 
 static void _brightness_slider_drag_stop_cb(void *data, Evas_Object *obj, void *event_info)
 {
-	is_sliding = EINA_FALSE;
+	// to do
 }
 
 /*!
@@ -604,67 +597,6 @@ static void _brightness_destroy(void *data)
 	g_ctrl_obj = NULL;
 }
 
-static void _handler_brightness(void *data, DBusMessage *msg)
-{
-	int ret = 0;
-	DBusError err;
-	char *key = NULL;
-	char *value = NULL;
-	retif(data == NULL || msg == NULL, , "Invalid parameter!");
-
-	dbus_error_init(&err);
-	ret = dbus_message_get_args(msg, &err,
-			DBUS_TYPE_STRING, &key,
-			DBUS_TYPE_STRING, &value,
-			DBUS_TYPE_INVALID);
-	retif(ret == 0, , "dbus_message_get_args error");
-	retif(key == NULL, , "Failed to get key");
-	retif(value == NULL, , "Failed to get value");
-
-	if (dbus_error_is_set(&err)) {
-		ERR("dbus err: %s", err.message);
-		dbus_error_free(&err);
-		return;
-	}
-
-	if (strcmp(key, "visibility") == 0) {
-		if (strcmp(value, PREF_BRIGHTNESS_ON) == 0) {
-			_brightness_create(data);
-			quickpanel_preference_set(PREF_BRIGHTNESS, PREF_BRIGHTNESS_ON);
-		} else if (strcmp(value, PREF_BRIGHTNESS_OFF) == 0) {
-			_brightness_destroy(data);
-			quickpanel_preference_set(PREF_BRIGHTNESS, PREF_BRIGHTNESS_OFF);
-		}
-	}
-}
-
-static void _ipc_init(void *data)
-{
-	struct appdata *ad = data;
-	retif(ad == NULL, , "Invalid parameter!");
-	retif(ad->dbus_connection == NULL, , "Invalid parameter!");
-
-	g_hdl_brightness =
-		e_dbus_signal_handler_add(ad->dbus_connection, NULL,
-				QP_DBUS_PATH,
-				QP_DBUS_NAME,
-				BRIGHTNESS_SIG_ACTIVITY,
-				_handler_brightness, data);
-	msgif(g_hdl_brightness == NULL, "fail to add size signal");
-}
-
-static void _ipc_fini(void *data)
-{
-	struct appdata *ad = data;
-	retif(ad == NULL, , "Invalid parameter!");
-	retif(ad->dbus_connection == NULL, , "Invalid parameter!");
-
-	if (g_hdl_brightness != NULL) {
-		e_dbus_signal_handler_del(ad->dbus_connection, g_hdl_brightness);
-		g_hdl_brightness = NULL;
-	}
-}
-
 static int _init(void *data)
 {
 	retif(data == NULL, QP_FAIL, "Invalid parameter!");
@@ -677,8 +609,6 @@ static int _init(void *data)
 
 	_brightness_create(data);
 
-	_ipc_init(data);
-
 	return QP_OK;
 }
 
@@ -686,7 +616,6 @@ static int _fini(void *data)
 {
 	retif(data == NULL, QP_FAIL, "Invalid parameter!");
 
-	_ipc_fini(data);
 	_brightness_destroy(data);
 
 	return QP_OK;

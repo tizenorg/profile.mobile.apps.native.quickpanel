@@ -35,7 +35,6 @@ SET(SRCS
 	daemon/settings/settings_icon_common.c
 	daemon/settings/settings_gridbox.c
 	daemon/settings/settings_view_featured.c
-	daemon/settings/settings_ipc.c
 	daemon/settings/setting_module_api.c
 	daemon/settings/settings.c
 	daemon/settings/setting_utils.c

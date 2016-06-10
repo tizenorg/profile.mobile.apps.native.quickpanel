@@ -32,7 +32,6 @@
 #include "modules.h"
 #include "settings.h"
 #include "setting_utils.h"
-#include "settings_ipc.h"
 #include "pager.h"
 #include "pager_common.h"
 #include "preference.h"
@@ -177,8 +176,6 @@ static int quickpanel_settings_init(void *data)
 		return QP_FAIL;
 	}
 
-	quickpanel_settings_ipc_init(ad);
-
 	return QP_OK;
 }
 
@@ -188,8 +185,6 @@ static int quickpanel_settings_fini(void *data)
 	int ret = 0;
 	struct appdata *ad = data;
 	retif(ad == NULL, QP_FAIL, "Invalid parameter!");
-
-	quickpanel_settings_ipc_fini(ad);
 
 	for (i = 0; s_info.modules[i] != NULL; i++) {
 		if (_module_is_enabled(s_info.modules[i]) == EINA_TRUE) {
