@@ -31,5 +31,6 @@ typedef enum _qp_noti_image_type {
 extern int quickpanel_noti_util_get_event_count_from_noti(notification_h noti);
 extern int quickpanel_noti_util_get_event_count_by_pkgname(const char *pkgname);
 extern char *quickpanel_noti_util_get_time(time_t t, char *buf, int buf_len);
+extern char *quickpanel_noti_util_get_text(notification_h noti, notification_text_type_e text_type);
 
 #endif

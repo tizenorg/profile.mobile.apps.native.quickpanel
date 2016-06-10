@@ -432,8 +432,8 @@ static void _set_text(Evas_Object *item, notification_h noti)
 
 	SDBG("percentage:%f size:%f", percentage, size);
 
-	ret = notification_get_text(noti, NOTIFICATION_TEXT_TYPE_TITLE, &text);
-	if (ret == NOTIFICATION_ERROR_NONE && text != NULL) {
+	text = quickpanel_noti_util_get_text(noti, NOTIFICATION_TEXT_TYPE_TITLE);
+	if (text != NULL) {
 		quickpanel_common_util_char_replace(text, _NEWLINE, _SPACE);
 		_set_text_to_part(item, "elm.text.title", text);
 #ifdef QP_SCREENREADER_ENABLE
@@ -441,8 +441,8 @@ static void _set_text(Evas_Object *item, notification_h noti)
 #endif
 	}
 
-	ret = notification_get_text(noti, NOTIFICATION_TEXT_TYPE_CONTENT, &text);
-	if (ret == NOTIFICATION_ERROR_NONE && text != NULL) {
+	text = quickpanel_noti_util_get_text(noti, NOTIFICATION_TEXT_TYPE_CONTENT);
+	if (text != NULL) {
 		if (layout == NOTIFICATION_LY_ONGOING_EVENT) {
 			text_utf8 = elm_entry_utf8_to_markup(text);
 			if (text_utf8 != NULL) {

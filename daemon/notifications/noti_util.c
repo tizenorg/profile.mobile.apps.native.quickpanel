@@ -296,3 +296,28 @@ err:
 
 	return ret <= 0 ? NULL : buf;
 }
+
+HAPI char *quickpanel_noti_util_get_text(notification_h noti, notification_text_type_e text_type)
+{
+	time_t time = 0;
+	char *text = NULL;
+	char buf[128] = {0,};
+
+	if (notification_get_time_from_text(noti, text_type, &time) == NOTIFICATION_ERROR_NONE) {
+		if ((int)time > 0) {
+			quickpanel_noti_util_get_time(time, buf, sizeof(buf));
+			text = buf;
+		}
+	} else {
+		notification_get_text(noti, text_type, &text);
+	}
+
+	DBG("text : %s", text);
+
+	if (text != NULL) {
+		return elm_entry_utf8_to_markup(text);
+	}
+
+	return NULL;
+}
+

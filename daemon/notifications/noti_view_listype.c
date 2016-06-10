@@ -253,9 +253,8 @@ static void _set_text(Evas_Object *item, notification_h noti)
 #endif
 
 	/* Get pkgname & id */
-	noti_err = notification_get_text(noti, NOTIFICATION_TEXT_TYPE_TITLE, &text);
-
-	if (noti_err == NOTIFICATION_ERROR_NONE && text != NULL) {
+	text = quickpanel_noti_util_get_text(noti, NOTIFICATION_TEXT_TYPE_TITLE);
+	if (text != NULL) {
 		DBG("TITLE text : %s", text);
 		quickpanel_common_util_char_replace(text, _NEWLINE, _SPACE);
 		_set_text_to_part(item, "elm.text.title", text);
@@ -265,7 +264,6 @@ static void _set_text(Evas_Object *item, notification_h noti)
 	}
 
 	noti_err = notification_get_text(noti, NOTIFICATION_TEXT_TYPE_EVENT_COUNT, &text);
-
 	if (noti_err == NOTIFICATION_ERROR_NONE && text != NULL) {
 		quickpanel_common_util_char_replace(text, _NEWLINE, _SPACE);
 		int count = atoi(text);
@@ -279,9 +277,8 @@ static void _set_text(Evas_Object *item, notification_h noti)
 #endif
 	}
 
-	noti_err = notification_get_text(noti, NOTIFICATION_TEXT_TYPE_CONTENT, &text);
-
-	if (noti_err == NOTIFICATION_ERROR_NONE && text != NULL) {
+	text = quickpanel_noti_util_get_text(noti, NOTIFICATION_TEXT_TYPE_CONTENT);
+	if (text != NULL) {
 		DBG("CONTENT text : %s", text);
 		quickpanel_common_util_char_replace(text, _NEWLINE, _SPACE);
 		_set_text_to_part(item, "elm.text.content", text);
