@@ -122,17 +122,17 @@ static void _win_rotated(Evas_Object *obj)
 	case 180:
 		evas_object_size_hint_min_set(obj, wd->scr_w, wd->h);
 		evas_object_resize(obj, wd->scr_w, wd->h);
-		evas_object_move(obj, 0, NOTI_START_Y);
+		evas_object_move(obj, 0, 0);
 		break;
 	case 90:
 		evas_object_size_hint_min_set(obj, wd->scr_h, wd->h);
 		evas_object_resize(obj, wd->scr_h, wd->h);
-		evas_object_move(obj, NOTI_START_Y, 0);
+		evas_object_move(obj, 0, 0);
 		break;
 	case 270:
 		evas_object_size_hint_min_set(obj, wd->scr_h, wd->h);
 		evas_object_resize(obj, wd->scr_h, wd->h);
-		evas_object_move(obj, wd->scr_w - wd->h - NOTI_START_Y, 0);
+		evas_object_move(obj, wd->scr_w - wd->h, 0);
 		break;
 	default:
 		ERR("cannot reach here");
@@ -212,7 +212,7 @@ HAPI Evas_Object *quickpanel_noti_win_add(Evas_Object *parent)
 	evas_object_data_set(win, E_DATA_KEY, wd);
 	wd->angle = 0;
 	wd->orient = NOTI_ORIENT_TOP;
-	evas_object_move(win, 0, NOTI_START_Y);
+	evas_object_move(win, 0, 0);
 	elm_win_screen_size_get(win, NULL, NULL, &w, &h);
 
 	wd->scr_w = w;
