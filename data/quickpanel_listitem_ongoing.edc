@@ -178,7 +178,7 @@
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					//min: 0 BOX_ICON_TOP_PADDING;
+					min: 0 BOX_ICON_TOP_PADDING;
 					//fixed: 0 1;
 					rel1.to:"base";
 					rel2.to:"base";
@@ -439,6 +439,16 @@
 						to: "elm.rect.thumbnail";
 					}
 					image.normal: "quick_button_icon_bg.png";
+				}
+				description {
+					state: "show" 0.0;
+					inherit: "default" 0.0;
+					visible:1;
+				}
+				description {
+					state: "hide" 0.0;
+					inherit: "default" 0.0;
+					visible:0;
 				}
 			}
 
@@ -933,7 +943,7 @@
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					//min: 0 BOX_ICON_TOP_PADDING;
+					min: 0 BOX_ICON_TOP_PADDING;
 					//fixed: 0 1;
 					rel1.to:"base";
 					rel2.to:"base";

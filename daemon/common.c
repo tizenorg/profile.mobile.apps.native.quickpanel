@@ -342,7 +342,7 @@ HAPI char *quickpanel_common_ui_get_appinfo_icon(const char *pkgid)
 		return NULL;
 	}
 
-	if (icon_path) {
+	if (icon_path != NULL && strlen(icon_path) > 0) {
 		icon_ret = (char*)strdup(icon_path);
 	}
 
@@ -370,7 +370,7 @@ HAPI char *quickpanel_common_ui_get_pkginfo_icon(const char *pkgid)
 		return NULL;
 	}
 
-	if (icon_path) {
+	if (icon_path != NULL && strlen(icon_path) > 0) {
 		icon_ret = (char*)strdup(icon_path);
 	}
 

@@ -99,7 +99,7 @@
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					//min: 0 BOX_ICON_TOP_PADDING;
+					min: 0 BOX_ICON_TOP_PADDING;
 					//fixed: 0 1;
 					rel1.to:"base";
 					rel2.to:"base";
@@ -175,11 +175,11 @@
 				scale: 1;
 				description {
 					state: "default" 0.0;
-					min: QP_THEME_LIST_ITEM_NOTIFICATION_LISTTYPE_HEIGHT QP_THEME_LIST_ITEM_NOTIFICATION_LISTTYPE_HEIGHT;
-					max: QP_THEME_LIST_ITEM_NOTIFICATION_LISTTYPE_HEIGHT QP_THEME_LIST_ITEM_NOTIFICATION_LISTTYPE_HEIGHT;
+					min: BOX_ICON_SIZE_W BOX_ICON_SIZE_H;
+					max: BOX_ICON_SIZE_W BOX_ICON_SIZE_H;
 					fixed: 1 1;
 					rel1 {
-						relative: 0.0 0.0;
+						relative: 1.0 1.0;
 						to_x: "elm.padding.left.icon";
 						to_y: "elm.padding.top.icon";
 					}
