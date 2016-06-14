@@ -48,30 +48,10 @@
       } \
    }
 
-	RESOURCE_IMAGE("Q02_Notification_update.png");
-	RESOURCE_IMAGE("quick_icon_torch.png");
-	RESOURCE_IMAGE("quick_icon_allshare.png");
-	RESOURCE_IMAGE("quick_icon_blocking_mode.png");
 	RESOURCE_IMAGE("quick_icon_bluetooth.png");
-	RESOURCE_IMAGE("quick_icon_command.png");
-	RESOURCE_IMAGE("quick_icon_driving.png");
-	RESOURCE_IMAGE("quick_icon_flightmode.png");
 	RESOURCE_IMAGE("quick_icon_location.png");
-	RESOURCE_IMAGE("quick_icon_mirroring.png");
-	RESOURCE_IMAGE("quick_icon_multi_window.png");
-	RESOURCE_IMAGE("quick_icon_nfc.png");
-	RESOURCE_IMAGE("quick_icon_private_mode.png");
-	RESOURCE_IMAGE("quick_icon_power_saving.png");
-	RESOURCE_IMAGE("quick_icon_ultra_power_saving.png");
-	RESOURCE_IMAGE("quick_icon_ready_to_share.png");
 	RESOURCE_IMAGE("quick_icon_auto_rotate.png");
-	RESOURCE_IMAGE("quick_icon_sbeam.png");
 	RESOURCE_IMAGE("quick_icon_sf_vf.png");
-	RESOURCE_IMAGE("quick_icon_smart_stay.png");
 	RESOURCE_IMAGE("quick_icon_sn_vf.png");
 	RESOURCE_IMAGE("quick_icon_sf_vn.png");
-	RESOURCE_IMAGE("quick_icon_sync.png");
-	RESOURCE_IMAGE("quick_icon_wifi_tethering.png");
-	RESOURCE_IMAGE("quick_icon_mobile_data.png");
 	RESOURCE_IMAGE("quick_icon_wifi.png");
-	RESOURCE_IMAGE("quick_icon_downloadbooster_off.png");
