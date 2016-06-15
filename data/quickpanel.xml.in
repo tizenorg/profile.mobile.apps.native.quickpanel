@@ -30,5 +30,6 @@
 		<privilege>http://tizen.org/privilege/keygrab</privilege>
 		<privilege>http://tizen.org/privilege/window.priority.set</privilege>
 		<privilege>http://tizen.org/privilege/call</privilege>
+		<privilege>http://tizen.org/privilege/mediastorage</privilege>
 	</privileges>
 </manifest>
