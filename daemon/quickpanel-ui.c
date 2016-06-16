@@ -65,7 +65,7 @@
 
 #define QP_WINDOW_PRIO 300
 
-static struct appdata *g_app_data = NULL;
+static struct appdata g_app_data;
 
 static void _ui_rotate(void *data, int new_angle);
 static void _ui_geometry_info_set(void *data);
@@ -74,7 +74,7 @@ static void _ui_efl_cache_flush(void *evas);
 
 HAPI void *quickpanel_get_app_data(void)
 {
-	return g_app_data;
+	return &g_app_data;
 }
 
 /******************************************************************************
@@ -923,7 +923,7 @@ int main(int argc, char *argv[])
 	ERR("BUILD START: %s %s", __DATE__, __TIME__);
 
 	int ret = 0;
-	struct appdata ad;
+
 	ui_app_lifecycle_callback_s event_callback = {0,};
 	app_event_handler_h handlers[5] = {NULL, };
 
@@ -935,17 +935,15 @@ int main(int argc, char *argv[])
 	event_callback.resume = _app_resume_cb;
 	event_callback.app_control = _app_service_cb;
 
+	memset(&g_app_data, 0x0, sizeof(struct appdata));
+
 //	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_BATTERY], APP_EVENT_LOW_BATTERY, NULL, NULL);
 //	ui_app_add_event_handler(&handlers[APP_EVENT_LOW_MEMORY], APP_EVENT_LOW_MEMORY, NULL, NULL);
 //	ui_app_add_event_handler(&handlers[APP_EVENT_DEVICE_ORIENTATION_CHANGED], APP_EVENT_DEVICE_ORIENTATION_CHANGED, NULL, NULL);
-	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, _app_language_changed_cb, &ad);
-	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, _app_region_format_changed_cb, &ad);
+	ui_app_add_event_handler(&handlers[APP_EVENT_LANGUAGE_CHANGED], APP_EVENT_LANGUAGE_CHANGED, _app_language_changed_cb, &g_app_data);
+	ui_app_add_event_handler(&handlers[APP_EVENT_REGION_FORMAT_CHANGED], APP_EVENT_REGION_FORMAT_CHANGED, _app_region_format_changed_cb, &g_app_data);
 
-	memset(&ad, 0x0, sizeof(struct appdata));
-
-	g_app_data = &ad;
-
-	ret = ui_app_main(argc, argv, &event_callback, (void *)&ad);
+	ret = ui_app_main(argc, argv, &event_callback, (void*)&g_app_data);
 	if (ret != APP_ERROR_NONE) {
 		ERR("ui_app_main() is failed. err = %d", ret);
 	}
