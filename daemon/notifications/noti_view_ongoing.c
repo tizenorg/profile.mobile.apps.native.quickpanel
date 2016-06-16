@@ -268,8 +268,8 @@ static void _set_icon(Evas_Object *item, notification_h noti)
 	char *main_icon_path = NULL;
 	char *sub_icon_path = NULL;
 	char *pkgname = NULL;
-	char shared_icon_path[MAX_FILE_PATH_LEN] = {NULL,};
-	char default_icon_path[MAX_FILE_PATH_LEN] = {NULL,};
+	char shared_icon_path[MAX_FILE_PATH_LEN] = {0, };
+	char default_icon_path[MAX_FILE_PATH_LEN] = {0, };
 
 	retif(item == NULL, , "Invalid parameter!");
 	retif(noti == NULL, , "noti is NULL");
