@@ -1215,6 +1215,7 @@ HAPI noti_node_item *quickpanel_noti_node_get_first_noti(void)
 	noti_node_item *node_first_noti = NULL;
 	notification_type_e type = NOTIFICATION_TYPE_NONE;
 	struct appdata *ad = quickpanel_get_app_data();
+	retif(ad == NULL, NULL, "invalid data");
 
 	item_list = elm_box_children_get(ad->list);
 	retif(item_list == NULL, NULL, "invalid parameter");
