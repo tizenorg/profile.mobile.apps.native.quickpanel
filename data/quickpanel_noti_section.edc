@@ -35,9 +35,10 @@
 
 //Properties of "notifications (x) label in clear all notifications item"
 #define QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_NAME 		"Tizen:style=Regular"
-//#define QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_COLOR 	"T023"
-#define QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_COLOR 	"A03O003L1"
-#define QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_SIZE 		27
+#define QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_COLOR 	"T112"
+#define QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_COLOR_PRESSED 	"ATO006P"
+#define QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_COLOR_DIM			"ATO006D"
+#define QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_SIZE 		23
 #define QP_CLEAR_ALL_NOTIFICATIONS_STR_X_OFFSET 17 //x offset of "notifications(x)" string
 #define QP_CLEAR_ALL_BASE_BG_COLOR			"AO021"
 
@@ -46,7 +47,7 @@
 #define QP_CLEAR_ALL_CLEAR_ALL_BTN_FONT_COLOR 			"T112"
 #define QP_CLEAR_ALL_CLEAR_ALL_BTN_FONT_COLOR_PRESSED		"ATO006P"
 #define QP_CLEAR_ALL_CLEAR_ALL_BTN_FONT_COLOR_DIM		"ATO006D"
-#define QP_CLEAR_ALL_CLEAR_ALL_BTN_FONT_SIZE 			20
+#define QP_CLEAR_ALL_CLEAR_ALL_BTN_FONT_SIZE 			23
 #define QP_CLEAR_ALL_CLEAR_ALL_BTN_BG_COLOR			"A03O003L1"
 #define QP_CLEAR_ALL_CLEAR_ALL_BTN_BG_COLOR_PRESSED		"B0517P"
 
@@ -529,22 +530,54 @@
 			}
 
 			part {
-				name: "elm.text.notifications_number";
+				name: "rect.button.notisetting";
+				type: IMAGE;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					min: 75 36;
+					max: 180 36;
+					fixed: 1 1;
+					rel1 {
+						to_x: "notisection.padding.left";
+						relative: 1.0 0.0;
+					}
+					rel2 {
+						relative: 0.0 1.0;
+						to_x: "separator.padding.left";
+						to_y: "base";
+					}
+
+					image {
+						normal:"core_icon_badge_container.#.png";
+					}
+					color_class: QP_CLEAR_ALL_CLEAR_ALL_BTN_BG_COLOR;
+					align: 0.0 0.5;
+				}
+				description
+				{
+					state: "pressed" 0.0;
+					inherit: "default" 0.0;
+					color_class: QP_CLEAR_ALL_CLEAR_ALL_BTN_BG_COLOR_PRESSED;
+				}
+			}
+
+			part {
+				name: "text.button.notisetting";
 				type: TEXT;
 				scale: 1;
 				description {
 					state: "default" 0.0;
 					min: 0 36;
-					align: 0.0 0.5;
+					align: 0.5 0.5;
 					rel1 {
-						to: "notisection.padding.left";
-						relative: 1.0 0.0;
+						to: "rect.button.notisetting";
+						relative: 0.0 0.0;
 					}
 					rel2
 					{
-						relative: 0.0 1.0;
-						to_x: "separator.padding.left";
-						to_y: "base";
+						relative: 1.0 1.0;
+						to: "rect.button.notisetting";
 					}
 
 					color_class: QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_COLOR;
@@ -552,9 +585,21 @@
 						font: QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_NAME;
 						size: QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_SIZE;
 						text_class: "tizen";
-						align: 0.0 0.5;
-						ellipsis: 0.0;
+						align: 0.5 0.5;
 					}
+					visible: 1;
+				}
+				description
+				{
+					state: "pressed";
+					inherit: "default";
+					color_class: QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_COLOR_PRESSED;
+				}
+				description
+				{
+					state: "dim";
+					inherit: "default";
+					color_class: QP_CLEAR_ALL_NOTIFICATIONS_LABEL_FONT_COLOR_DIM;
 				}
 			}
 			part {
@@ -668,10 +713,30 @@
 				}
 			}
 			QUICKPANEL_FOCUS_OBJECT("focus", "rect.button.clear_all", "rect.button.clear_all")
+			QUICKPANEL_FOCUS_OBJECT("focus.setting", "rect.button.notisetting", "rect.button.notisetting")
 		}
 		programs
 		{
+			program
+			{
+				name: "notisetting.button.pressed";
+				signal: "mouse,down,1";
+				source: "focus.setting";
 
+				action: STATE_SET "pressed" 0.0;
+				target: "rect.button.notisetting";
+				target: "text.button.notisetting";
+			}
+			program
+			{
+				name: "notisetting.button.released";
+				signal: "mouse,up,1";
+				source: "focus.setting";
+
+				action: STATE_SET "default" 0.0;
+				target: "rect.button.notisetting";
+				target: "text.button.notisetting";
+			}
 			program
 			{
 				name: "clear_all.button.pressed";

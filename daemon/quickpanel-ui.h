@@ -68,6 +68,7 @@
 #if !defined(VENDOR)
 #define QP_PKG_QUICKPANEL	"org.tizen.quickpanel"
 #define QP_SETTING_PKG_SETTING	"org.tizen.setting"
+#define QP_SETTING_PKG_NOTI	"org.tizen.setting-notification"
 #define QP_MINIAPPTRAY_PKG "org.tizen.mini-apps"
 #else
 #define QP_PKG_QUICKPANEL	VENDOR".quickpanel"

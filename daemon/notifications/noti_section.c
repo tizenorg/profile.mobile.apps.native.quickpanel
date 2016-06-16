@@ -44,24 +44,9 @@
 
 static void _noti_section_set_text(Evas_Object *noti_section, int count)
 {
-	char text[128] = { 0, };
-	char *format;
-	const char *old_text;
-
 	if (!noti_section) {
 		ERR("Invalid parameter");
 		return;
-	}
-
-	DBG("count is : %d ", count);
-	format = _("IDS_QP_HEADER_NOTIFICATIONS_HPD_ABB");
-	snprintf(text, sizeof(text) - 1, format, count);
-
-	old_text = elm_object_part_text_get(noti_section, "elm.text.notifications_number");
-	if (old_text != NULL) {
-		if (strcmp(old_text, text) == 0) {
-			return;
-		}
 	}
 
 #ifdef QP_SCREENREADER_ENABLE
@@ -70,19 +55,21 @@ static void _noti_section_set_text(Evas_Object *noti_section, int count)
 	ao = quickpanel_accessibility_screen_reader_object_get(noti_section, SCREEN_READER_OBJ_TYPE_ELM_OBJECT, "focus.label", noti_section);
 	if (ao != NULL) {
 		elm_access_info_set(ao, ELM_ACCESS_TYPE, "");
-		elm_access_info_set(ao, ELM_ACCESS_INFO, text);
+		elm_access_info_set(ao, ELM_ACCESS_INFO, _("IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"));
 	}
 #endif
 
-	DBG("Trying to set text :%s ", text);
-	elm_object_part_text_set(noti_section, "elm.text.notifications_number", text);
-	elm_object_part_text_set(noti_section, "text.button.clear_all", _("IDS_QP_HEADER_CLEAR_ALL_ABB"));
+	//elm_object_part_text_set(noti_section, "elm.text.notifications_number", _("IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"));
+	elm_object_part_text_set(noti_section, "text.button.notisetting", "NOTI.SETTINS");
+	//elm_object_part_text_set(noti_section, "text.button.clear_all", _("IDS_QP_HEADER_CLEAR_ALL_ABB"));
+	elm_object_part_text_set(noti_section, "text.button.clear_all", "CLEAR ALL");
 }
 
 HAPI Evas_Object *quickpanel_noti_section_create(Evas_Object *parent, qp_item_type_e type)
 {
 	Evas_Object *section;
-	Evas_Object *focus;
+	Evas_Object *focus_clear;
+	Evas_Object *focus_setting;
 	struct appdata *ad;
 	qp_item_data *qid;
 	Eina_Bool ret;
@@ -115,15 +102,24 @@ HAPI Evas_Object *quickpanel_noti_section_create(Evas_Object *parent, qp_item_ty
 	quickpanel_list_util_item_set_tag(section, qid);
 	quickpanel_list_util_sort_insert(ad->list, section);
 
-	focus = quickpanel_accessibility_ui_get_focus_object(section);
-	if (!focus) {
+	focus_clear = quickpanel_accessibility_ui_get_focus_object(section);
+	if (!focus_clear) {
 		ERR("Unable to get the focus object");
 		quickpanel_list_util_item_del(qid);
 		evas_object_del(section);
 		return NULL;
 	}
-	elm_object_part_content_set(section, "focus", focus);
-	evas_object_smart_callback_add(focus, "clicked", quickpanel_noti_on_clear_all_clicked, NULL);
+	focus_setting = quickpanel_accessibility_ui_get_focus_object(section);
+	if (!focus_setting) {
+		ERR("Unable to get the focus object");
+		quickpanel_list_util_item_del(qid);
+		evas_object_del(section);
+		return NULL;
+	}
+	elm_object_part_content_set(section, "focus", focus_clear);
+	evas_object_smart_callback_add(focus_clear, "clicked", quickpanel_noti_on_clear_all_clicked, NULL);
+	elm_object_part_content_set(section, "focus.setting", focus_setting);
+	evas_object_smart_callback_add(focus_setting, "clicked", quickpanel_noti_on_noti_setting_clicked, NULL);
 
 	return section;
 }
