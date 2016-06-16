@@ -34,6 +34,7 @@ extern noti_node_item *quickpanel_noti_node_get_first_noti(void);
 extern void quickpanel_noti_set_clear_all_status();
 
 extern void quickpanel_noti_on_clear_all_clicked(void *data, Evas_Object *obj, void *info);
+extern void quickpanel_noti_on_noti_setting_clicked(void *data, Evas_Object *obj, void *info);
 extern int quickpanel_noti_get_type_count(notification_type_e noti_type);
 extern void quickpanel_noti_init_noti_section(void);
 extern void quickpanel_noti_update_by_system_time_changed_setting_cb(system_settings_key_e  key, void *data);

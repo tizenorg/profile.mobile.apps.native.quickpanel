@@ -1296,6 +1296,17 @@ HAPI void quickpanel_noti_set_clear_all_status()
 	}
 }
 
+HAPI void quickpanel_noti_on_noti_setting_clicked(void *data, Evas_Object *obj, void *info)
+{
+	DBG("Noti Setting clicked");
+
+	quickpanel_media_play_feedback();
+
+	quickpanel_uic_launch_app(QP_SETTING_PKG_NOTI, NULL);
+
+	quickpanel_uic_close_quickpanel(true, 1);
+}
+
 HAPI void quickpanel_noti_on_clear_all_clicked(void *data, Evas_Object *obj, void *info)
 {
 	quickpanel_media_play_feedback();
