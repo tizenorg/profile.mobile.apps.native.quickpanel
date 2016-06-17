@@ -60,7 +60,7 @@ static void _noti_section_set_text(Evas_Object *noti_section, int count)
 #endif
 
 	//elm_object_part_text_set(noti_section, "elm.text.notifications_number", _("IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"));
-	elm_object_part_text_set(noti_section, "text.button.notisetting", "NOTI.SETTINS");
+	elm_object_part_text_set(noti_section, "text.button.notisetting", "NOTI.SETTINGS");
 	//elm_object_part_text_set(noti_section, "text.button.clear_all", _("IDS_QP_HEADER_CLEAR_ALL_ABB"));
 	elm_object_part_text_set(noti_section, "text.button.clear_all", "CLEAR ALL");
 }
