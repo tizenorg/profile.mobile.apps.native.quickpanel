@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Wi-Fi និង Mobile AP មិន​អាច​ដំណើរការ​បាន​ក្នុង​ពេល​តែ​មួយ​ឡើយ។ បិទ​ដំណើរការ Mobile AP?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "ការហៅ​អាសន្ន​ប៉ុណ្ណោះ"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "គ្មាន​សេវា"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "កាត SIM អសុពលភាព។"
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "ជម្រះ​ទាំងអស់"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "ការជូនដំណឹង"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "ញ័រ"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "សំឡេង"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "បិទ​សំឡេង"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "ទីកន្លែង"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "មិន​អាច​បង្កើន​ពន្លឺ​ទៀត ដោយសារ​ទូរសព្ទ​ឡើង​កម្ដៅ​ជ្រុល។"
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "Bluetooth"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "ស្វ័យ\nបង្វិល"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "កំពុង​ស្វែង​រក"
+
+msgid "IDS_ST_SK_OK"
+msgstr "ព្រម"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "ការកំណត់ការជូនដំណឹង"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "ជម្រះ​ទាំងអស់"
+
