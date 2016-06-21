@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "ບໍ່ສາມາດເປີດໃຊ້ທັງ Wi-Fi ແລະ AP ໂທລະສັບມືຖືໃນເວລາດຽວກັນໄດ້. ປິດໃຊ້ AP ໂທລະສັບມືຖືບໍ?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "ໂທສຸກເສີນເທົ່ານັ້ນ"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "ບໍ່ມີການບໍລິການ"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "ແຜ່ນ SIM ບໍ່ຖືກຕ້ອງ."
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "ລຶບທັງໝົດ"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "ການແຈ້ງເຕືອນ"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "ສັ່ນ"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "ສຽງ"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "ປິດສຽງ"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "ທີ່ຕັ້ງ"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "ບໍ່ສາມາດເພີ່ມຄວາມແຈ້ງຕໍ່ໄປໄດ້ອີກ ເພາະວ່າໂທລະສັບຮ້ອນເກີນໄປ."
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "ບລູທູດ"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "ໝຸນ\nອັດຕະໂນມັດ"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "ການຄົ້ນຫາ"
+
+msgid "IDS_ST_SK_OK"
+msgstr "ຕົກລົງ"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "ການແຈ້ງເຕືອນ ການຕັ້ງຄ່າ"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "ລຶບທັງໝົດ"
+

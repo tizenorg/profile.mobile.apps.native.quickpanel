@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "రెండూ Wi-Fi మరియు Mobile AP ఒకే సమయంలో యాక్టివ్‌గా చెయ్యలేరు. Mobile AP డియాక్టివేట్ చేయాలా?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "అత్యవసర కాల్‌లు మాత్రమే"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "సర్వీస్ లేదు"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "చెల్లని SIM కార్డు."
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "అన్నింటినీ క్లియర్ చేయి"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "నోటిఫికేషన్"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "వైబ్రేట్"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "ధ్వని"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "మ్యూట్"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "స్థానం"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "ఫోన్ ఓవర్‌హీటింగ్ వలన ప్రకాశవంతంను తరువాతకి పెంచలేము."
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "బ్లూటూత్"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "స్వీయ\nరొటేట్"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "శోధిస్తోంది"
+
+msgid "IDS_ST_SK_OK"
+msgstr "సరే"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "నోటిఫి. సెట్టింగ్‌లు"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "అన్నింటినీ క్లియర్ చేయి"
+

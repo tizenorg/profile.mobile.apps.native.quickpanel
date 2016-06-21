@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Wi-Fi અને Mobile AP બંને એક સમયમાં સક્રિય કરી શકાતો નથી. Mobile AP નિષ્ક્રિય કરીએ?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "માત્ર તાત્કાલિક કૉલ્સ"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "સેવા નથી"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "અમાન્ય SIM કાર્ડ."
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "બધું સાફ કરો"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "સૂચના"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "કંપન"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "ધ્વનિ"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "મ્યૂટ કરો"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "સ્થાન"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "ચળકાટ વધારવા અક્ષમ છે કરણ કે ફોન પહેલેથી જ વધારે ગરમ છે."
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "બ્લ્યુટુથ"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "સ્વતઃ\nફેરવો"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "શોધે છે"
+
+msgid "IDS_ST_SK_OK"
+msgstr "ઓકે"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "સૂચના સેટિંગ્સ"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "બધું સાફ કરો"
+

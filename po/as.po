@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Wi-Fi আৰু ম'বাইল AP দুয়োটা একে সময়তে সক্ৰিয় কৰিব পৰা নগ'ল৷ ম'বাইল AP অসক্ৰিয় কৰিব নেকি?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "কেৱল জৰুৰীকালীন কল"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "সেৱা নাই"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "অমান্য SIM কাৰ্ড৷"
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "সকলো পৰিষ্কাৰ কৰক"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "অধিসূচনা"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "ভাইব্ৰেট"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "ধ্বনি"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "মিউট"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "অৱস্থান"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "ফোন অধিক গৰম হোৱা কাৰণে উজ্জ্বলতা বৃদ্ধি কৰিবলৈ অক্ষম৷"
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "ব্লুটুথ"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "স্বয়ং\nঘূৰ্ণন"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "অনুসন্ধানৰত"
+
+msgid "IDS_ST_SK_OK"
+msgstr "ঠিক"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "ন'টি ছেটিংছ"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "সকলো পৰিষ্কাৰ কৰক"
+
