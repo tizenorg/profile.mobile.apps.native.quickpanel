@@ -1,35 +1,35 @@
 msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
-msgstr "Tuo pat metu negalima suaktyvinti ir „Wi-Fi“, ir „Mobile AP“. Išjungti „Mobile AP“?"
+msgstr "לא ניתן להפעיל בו זמנית Wi-Fi ו-Mobile AP. לבטל את Mobile AP?"
 
 msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
-msgstr "Tik pagalbos skambučiai"
+msgstr "שיחות חירום בלבד"
 
 msgid "IDS_IDLE_BODY_NO_SERVICE"
-msgstr "Paslauga neteikiama"
+msgstr "אין שירות"
 
 msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
-msgstr "Netinkama SIM kortelė."
+msgstr "כרטיס SIM לא חוקי."
 
 msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
-msgstr "Viską išv."
+msgstr "נקה הכל"
 
 msgid "IDS_QP_BUTTON_NOTIFICATION"
-msgstr "Pranešimas"
+msgstr "הודעה"
 
 msgid "IDS_QP_BUTTON2_VIBRATE"
-msgstr "Vibruoti"
+msgstr "רטט"
 
 msgid "IDS_QP_BUTTON2_SOUND_ABB"
-msgstr "Garsas"
+msgstr "צליל"
 
 msgid "IDS_QP_BUTTON2_MUTE_ABB"
-msgstr "Tildyti"
+msgstr "השתק"
 
 msgid "IDS_QP_BUTTON2_LOCATION_ABB"
-msgstr "Vieta"
+msgstr "מיקום"
 
 msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
-msgstr "Neįmanoma padidinti šviesumo dėl telefono perkaitimo."
+msgstr "לא ניתן להבהיר עוד יותר בשל חימום יתר של הטלפון."
 
 msgid "IDS_ST_BUTTON2_WI_FI_ABB"
 msgstr "Wi-Fi"
@@ -38,17 +38,17 @@ msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
 msgstr "Bluetooth"
 
 msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
-msgstr "Autom.\npasukim."
+msgstr "סיבוב\nאוטומטי"
 
 msgid "IDS_COM_BODY_SEARCHING"
-msgstr "Ieškoma"
+msgstr "חיפוש"
 
 msgid "IDS_ST_SK_OK"
-msgstr "Gerai"
+msgstr "אישור"
 
 msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
-msgstr "PRANEŠ. NUSTATYM."
+msgstr "הגדרות התראה"
 
 msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
-msgstr "VALYTI VISKĄ"
+msgstr "נקה הכל"
 

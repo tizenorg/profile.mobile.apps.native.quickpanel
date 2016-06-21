@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Wi-Fi ಮತ್ತು ಮೊಬೈಲ್ AP ಎರಡನ್ನೂ ಒಂದೇ ಸಮಯದಲ್ಲಿ Activateಗೊಳಿಸಲಾಗುವುದಿಲ್ಲ.ಮೊಬೈಲ್ AP ನಿಷ್ಕ್ರಿಯಗೊಳಿಸುವುದೆ?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "ತುರ್ತು ಕರೆಗಳು ಮಾತ್ರ"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "ಯಾವುದೆ ಸೇವೆ ಇಲ್ಲ"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "ತಪ್ಪಾದ SIM ಕಾರ್ಡ್."
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "ಎಲ್ಲ ತೆರ."
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "ಪ್ರಕಟಣೆ"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "ಕಂಪಿಸು"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "ಶಬ್ದ"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "ನಿಶ್ಯಬ್ದ"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "ಸ್ಥಳ"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "ಫೋನ್ ಹೆಚ್ಚು ಬಿಸಿಯಾಗುತ್ತಿರುವ ಕಾರಣ ಇನ್ನೂ ಮುಂದೆ ಬ್ರೈಟ್‌ನೆಸ್ ಹೆಚ್ಚಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ."
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "ಬ್ಲೂಟೂತ್"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "ಸ್ವಯಂ\nತಿರುಗಿಸಿ"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "ಶೋಧಿಸುತ್ತಿದೆ"
+
+msgid "IDS_ST_SK_OK"
+msgstr "ಸರಿ"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "ಪ್ರಕ. ಸಂಯೋಜನೆಗಳು"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "ಎಲ್ಲ ತೆರವುಗೊಳಿಸಿ"
+
