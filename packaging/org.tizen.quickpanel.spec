@@ -61,6 +61,7 @@ BuildRequires: pkgconfig(dpm)
 BuildRequires: gettext-tools
 BuildRequires: cmake
 BuildRequires: edje-tools
+BuildRequires: hash-signer
 Requires(post): /usr/bin/vconftool
 
 %description
@@ -97,6 +98,12 @@ make %{?jobs:-j%jobs}
 rm -rf %{buildroot}
 %make_install
 
+%define tizen_sign 1
+%define tizen_sign_base /usr/apps/%{name}
+%define tizen_sign_level platform
+%define tizen_author_sign 1
+%define tizen_dist_sign 1
+
 %post
 
 %files
@@ -106,3 +113,5 @@ rm -rf %{buildroot}
 %{_prefix}/apps/%{name}
 %{_prefix}/share/packages/%{name}.xml
 %{_prefix}/share/license/%{name}
+/usr/apps/%{name}/author-signature.xml
+/usr/apps/%{name}/signature1.xml
