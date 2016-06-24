@@ -100,7 +100,7 @@
 				description {
 					state: "default" 0.0;
 					min: 0 BOX_ICON_TOP_PADDING;
-					//fixed: 0 1;
+					fixed: 0 1;
 					rel1.to:"base";
 					rel2.to:"base";
 					rel1.relative: 0.0 0.0;
