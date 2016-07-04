@@ -430,8 +430,6 @@ HAPI Evas_Object *quickpanel_noti_list_item_create(Evas_Object *parent, notifica
 		handler->noti_node = NULL;
 		handler->state = NOTILISTITEM_STATE_NORMAL;
 
-		_item_handler_set(view, handler);
-
 		Evas_Object *focus = quickpanel_accessibility_ui_get_focus_object(view);
 		elm_object_part_content_set(view, "focus", focus);
 
@@ -470,6 +468,10 @@ HAPI Evas_Object *quickpanel_noti_list_item_create(Evas_Object *parent, notifica
 		elm_gesture_layer_attach(gl, view);
 
 		elm_gesture_layer_cb_set(gl, ELM_GESTURE_N_FLICKS, ELM_GESTURE_STATE_END, _flick_end_cb, view);
+		handler->gesture_layer = gl;
+
+		_item_handler_set(view, handler);
+
 	} else {
 		ERR("failed to create notification view(%s)"
 				, s_info.view_handlers[layout]->name);
@@ -507,9 +509,12 @@ HAPI void quickpanel_noti_list_item_remove(Evas_Object *item)
 			}
 		}
 
+		if (handler->gesture_layer) {
+			evas_object_del(handler->gesture_layer);
+		}
+
 		free(handler);
 	}
-
 	evas_object_data_del(item, E_DATA_NOTI_LIST_ITEM_H);
 	evas_object_del(item);
 	item = NULL;

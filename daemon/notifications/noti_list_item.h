@@ -55,7 +55,7 @@ typedef struct _noti_list_item_h {
 	response_cb deleted_cb;
 
 	QP_VI *vi;
-	Ecore_Animator *animator;
+	Evas_Object *gesture_layer;
 
 	int obj_w;
 	int obj_h;
