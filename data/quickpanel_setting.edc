@@ -405,6 +405,7 @@ group {
 				state: "default" 0.0;
 				min : QP_SETTING_ICON_BG_MIN_W_P_WVGA QP_SETTING_ICON_MIN_WH_WVGA;
 				max : QP_SETTING_ICON_BG_MIN_W_P_WVGA QP_SETTING_ICON_MIN_WH_WVGA;
+				fixed : 1 1;
 				rel1 {
 					relative : 0.0 1.0;
 					to: "padding.top";
@@ -437,6 +438,7 @@ group {
 
 				min: QP_SETTING_ICON_MIN_WH_WVGA QP_SETTING_ICON_MIN_WH_WVGA;
 				max: QP_SETTING_ICON_MIN_WH_WVGA QP_SETTING_ICON_MIN_WH_WVGA;
+				fixed : 1 1;
 
 				image {
 					normal:"quick_button_icon_bg.png";
@@ -514,6 +516,7 @@ group {
 			description {
 				state: "default" 0.0;
 				min: 66 66;
+				fixed: 1 1;
 				rel1 {
 					relative: 0.5 0.5;
 					to: "icon.bg";
