@@ -22,6 +22,7 @@
 
 #include <app.h>
 #include <vconf.h>
+#include <appcore-common.h>
 #include <notification.h>
 #include <app_control_internal.h>
 #include <bundle_internal.h>
@@ -281,6 +282,11 @@ static void _quickpanel_close(void)
 	ret = tzsh_quickpanel_service_hide(ad->quickpanel_service);
 	if(ret != 0) {
 		ERR("failed tzsh_quickpanel_service_hide");
+	}
+
+	ret = appcore_flush_memory();
+	if(ret != 0) {
+		ERR("failed appcore_flush_memory");
 	}
 
 }
