@@ -182,7 +182,7 @@
 				description {
 					state: "default" 0.0;
 					align: 0.0 0.0;
-					min: 480 140;
+					min: 480 QP_THEME_LIST_ITEM_MINICONTRL_HEIGHT;
 					rel1 {
 						to: "elm.content.bg";
 					}
