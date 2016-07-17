@@ -61,6 +61,7 @@ extern Noti_View_H ongoing_noti_view_h;
 static struct _info {
 	int item_debug_step;
 	Noti_View_H *view_handlers[NOTIFICATION_LY_MAX + 1];
+	Eina_Bool mouse_event_blocker;
 } s_info = {
 	.item_debug_step = 0,
 	.view_handlers = {
@@ -72,6 +73,7 @@ static struct _info {
 		&ongoing_noti_view_h,
 		NULL,
 	},
+	.mouse_event_blocker = EINA_TRUE,
 };
 
 static int _is_item_deletable_by_gesture(noti_list_item_h *handler)
@@ -190,6 +192,10 @@ void static _mouse_down_cb(void *data, Evas *e, Evas_Object *obj, void *event_in
 	Evas_Event_Mouse_Down *ev = (Evas_Event_Mouse_Down *)event_info;
 	retif(ev == NULL, , "event_info is NULL");
 
+	if (s_info.mouse_event_blocker == EINA_TRUE) {
+		s_info.mouse_event_blocker = EINA_FALSE;
+	}
+
 	handler = _item_handler_get(obj);
 	retif(handler == NULL, , "handler is NULL");
 
@@ -224,6 +230,10 @@ static void _mouse_move_cb(void* data, Evas* e, Evas_Object* obj, void* event_in
 	Evas_Event_Mouse_Move* ev = event_info;
 	QP_VI *vi = NULL;
 	retif(ev == NULL, , "event_info is NULL");
+
+	if (s_info.mouse_event_blocker == EINA_TRUE) {
+		return;
+	}
 
 	handler = _item_handler_get(obj);
 	retif(handler == NULL, , "handler is NULL");
@@ -287,6 +297,10 @@ static void _mouse_up_cb(void *data, Evas *e, Evas_Object *obj, void *event_info
 {
 	int x = 0;
 	noti_list_item_h *handler;
+
+	if (s_info.mouse_event_blocker == EINA_FALSE) {
+		s_info.mouse_event_blocker = EINA_TRUE;
+	}
 
 	handler = _item_handler_get(obj);
 	retif(handler == NULL, , "handler is NULL");

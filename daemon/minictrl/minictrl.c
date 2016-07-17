@@ -85,8 +85,10 @@ struct _viewer_item {
 
 static struct _info {
 	GHashTable *prov_table;
+	Eina_Bool mouse_event_blocker;
 } s_info = {
 	.prov_table = NULL,
+	.mouse_event_blocker = EINA_TRUE,
 };
 
 void _minictrl_sendview_rotation_event(const char* name, int angle);
@@ -217,6 +219,10 @@ static void _mouse_down_cb(void *data, Evas *e, Evas_Object *obj, void *event_in
 	Evas_Event_Mouse_Down *ev;
 	struct _viewer_item *vit;
 
+	if (s_info.mouse_event_blocker == EINA_TRUE) {
+		s_info.mouse_event_blocker = EINA_FALSE;
+	}
+
 	vit = evas_object_data_get(obj, MINICONTROL_VIEW_DATA);
 	ev = (Evas_Event_Mouse_Down *)event_info;
 
@@ -253,6 +259,10 @@ static void _mouse_move_cb(void* data, Evas* e, Evas_Object* obj, void* event_in
 	Evas_Event_Mouse_Move* ev;
 	struct _viewer_item *vit;
 	struct appdata *ad;
+
+	if (s_info.mouse_event_blocker == EINA_TRUE) {
+		return;
+	}
 
 	ad = data;
 	ev = event_info;
@@ -361,6 +371,10 @@ static void _mouse_up_cb(void *data, Evas *e, Evas_Object *obj, void *event_info
 	struct _viewer_item *vit;
 	struct appdata *ad;
 	int swipe_distance;
+
+	if (s_info.mouse_event_blocker == EINA_FALSE) {
+		s_info.mouse_event_blocker = EINA_TRUE;
+	}
 
 	ad = data;
 	vit = evas_object_data_get(obj, MINICONTROL_VIEW_DATA);
@@ -620,7 +634,7 @@ static Eina_Bool _anim_init_cb(void *data)
 			.handler = NULL,
 		},
 	};
-	
+
 	vi = data;
 	if (!vi) {
 		ERR("Invalid parameter");
