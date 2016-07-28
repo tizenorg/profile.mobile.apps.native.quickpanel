@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Wi-Fi மற்றும் மொபைல் AP ஆகிய இரண்டும் ஒரே நேரத்தில் செயல்படுத்த இயலாது. மொபைல் AP செயல்நீக்கவா?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "அவசர அழைப்புகள் மட்டும்"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "சேவை இல்லை"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "தவறான SIM அட்டை."
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "எ. நீக்கு."
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "அறிவிப்பு"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "அதிர்வுறவும்"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "ஒலி"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "ஒலிதடுக்கவும்"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "இருப்பிடம்"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "ஃபோன் அதிகம் சூடாவதன் காரணமாக ஒளிர்வு நிலையை மேலும் அதிகப்படுத்த இயலாது."
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "ப்ளூடூத்"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "தானாக\nசுழற்றவும்"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "தேடுகிறது"
+
+msgid "IDS_ST_SK_OK"
+msgstr "சரி"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "அறிவிப்பு அமைவுகள்"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "எல்லாம் அழிக்கவும்"
+

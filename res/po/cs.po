@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Wi-Fi a mobilní přístupový bod nelze aktivovat současně. Chcete deaktivovat mobilní přístupový bod?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "Pouze tísňová volání"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "Žádné služby"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "Chybná SIM karta."
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "Smazat vše"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "Oznámení"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "Vibrace"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "Zvuk"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "Ztlumit"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "Umístění"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "Nelze více zvýšit jas z důvodu přehřívání telefonu."
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "Bluetooth"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "Autom.\notočení"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "Vyhledávání"
+
+msgid "IDS_ST_SK_OK"
+msgstr "OK"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "NAST. UPOZORNĚNÍ"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "SMAZAT VŠE"
+

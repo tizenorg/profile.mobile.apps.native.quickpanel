@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Wi-Fi এবং Mobile AP উভয়কে একই সময়ে সক্রিয় রাখা যাবেনা। Mobile AP নিষ্ক্রিয় করবেন?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "শুধু আপৎকালীন কল"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "কোনো পরিষেবা নেই"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "অকার্যকর SIM কার্ড।"
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "সব মুছুন"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "বিজ্ঞপ্তি"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "কম্পন"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "ধ্বনি"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "নীরব"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "অবস্থান"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "ফোনের অতিরিক্ত তাপের কারণে ঔজ্জ্বল্য আরও বৃদ্ধি করা যাচ্ছে না।"
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "Bluetooth"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "স্বতঃ\nঘূর্ণন"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "সন্ধান চলছে"
+
+msgid "IDS_ST_SK_OK"
+msgstr "ওকে"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "বিজ্ঞপ্তির সেটিংস"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "সব মুছে ফেলুন"
+

@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Wi-FiとWi-Fiテザリング両方は同時起動できません。Wi-Fiテザリングを無効にしますか？"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "緊急通報のみ発信可能"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "サービスが利用できません。"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "無効なSIMカードです。"
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "全て消去"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "通知"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "バイブ"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "サウンド"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "消音"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "位置情報"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "端末が過熱しているため、これ以上明るさを上げることができません。"
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "Bluetooth"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "自動回転"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "検索しています。"
+
+msgid "IDS_ST_SK_OK"
+msgstr "OK"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "通知設定"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "全て消去"
+

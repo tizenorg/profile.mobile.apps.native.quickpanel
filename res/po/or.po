@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "ଉଭୟ ୱାଇ-ଫାଇ ଏବଂ ମୋବାଇଲ ଏପି ବର୍ତ୍ତମାନ ସକ୍ରିୟ ହୋଇପାରିବ ନାହିଁ । ମୋବାଇଲ ଏପି ନିଷ୍କ୍ରିୟ କରିବେ?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "କେବଳ ଜରୁରୀକାଳୀନ କଲଗୁଡିକ"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "କୌଣସି ସେବା ନାହିଁ"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "ଅବୈଧ SIM କାର୍ଡ୍"
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "ସମସ୍ତ ଖାଲି"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "ବିଜ୍ଞପ୍ତି"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "କମ୍ପନ"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "ଧ୍ଵନି"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "ମ୍ୟୁଟ୍"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "ଅବସ୍ଥାନ"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "ପୁନଃ ଉଜ୍ଜଳ ବଢାଇବାରେ ଅକ୍ଷ୍ୟମ ଅଟେ କାରଣ ଫୋନ ଅଧିକଗରମ ହେଉଛି।"
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "ବ୍ଲୁଟୁଥ୍"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "ସ୍ଵତଃ\nଘୁର୍ଣ୍ଣନ"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "ସନ୍ଧାନ କରୁଛି"
+
+msgid "IDS_ST_SK_OK"
+msgstr "ଓକେ"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "ବିଜ୍ଞପ୍ତି ସେଟିଂସ୍"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "ସମସ୍ତ ଖାଲି"
+

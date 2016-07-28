@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Vienlaikus nevar aktivizēt Wi-Fi un Mobile AP. Vai deaktivizēt Mobile AP?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "Tikai ārkārtas zvani"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "Nav pakalpojuma"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "Nederīga SIM karte."
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "Not. visu"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "Paziņojums"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "Vibrēt"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "Skaņa"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "Izslēgt skaņu"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "Lokācija"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "Nav iespējams vairāk palielināt spilgtumu dēļ tālruņa pārkaršanas."
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "Bluetooth"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "Autom.\npagriezt"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "Meklē"
+
+msgid "IDS_ST_SK_OK"
+msgstr "Labi"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "PAZIŅ. IESTAT."
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "NOTĪRĪT VISU"
+

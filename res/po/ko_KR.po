@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Wi-Fi와 모바일 AP를 동시에 실행할 수 없습니다. 모바일 AP를 해제할까요?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "긴급전화만 가능"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "서비스 지역이 아닙니다"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "SIM 카드가 바르지 않습니다."
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "모두 삭제"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "알림"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "진동"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "소리"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "무음"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "위치"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "디바이스 온도가 높아져 밝기를 더 높일 수 없습니다."
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "블루투스"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "자동 회전"
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "검색 중..."
+
+msgid "IDS_ST_SK_OK"
+msgstr "확인"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "알림 설정"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "모두 지우기"
+

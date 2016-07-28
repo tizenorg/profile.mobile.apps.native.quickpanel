@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://tizen.org/ns/packages" package="@PKGNAME@" version="0.8.0" install-location="internal-only" api-version="3.0">
+	<label>@PROJECT_NAME@</label>
+	<author email="yjoo93.park@samsung.com" href="www.samsung.com">Youngjoo Park</author>
+	<author email="jin0.kim@samsung.com" href="www.samsung.com">Jinyoung Kim</author>
+	<description>@PROJECT_NAME@</description>
+	<ui-application appid="@PKGNAME@" exec="@BINDIR@/@PROJECT_NAME@" nodisplay="true" multiple="false" type="capp" taskmanage="false" process-pool="true" hw-acceleration="on">
+		<label>@PROJECT_NAME@</label>
+		<background-category value="system"/>
+	</ui-application>
+	<privileges>
+		<privilege>http://tizen.org/privilege/appmanager.launch</privilege>
+		<privilege>http://tizen.org/privilege/system</privilege>
+		<privilege>http://tizen.org/privilege/systemsettings.admin</privilege>
+		<privilege>http://tizen.org/privilege/location</privilege>
+		<privilege>http://tizen.org/privilege/location.enable</privilege>
+		<privilege>http://tizen.org/privilege/bluetooth</privilege>
+		<privilege>http://tizen.org/privilege/bluetooth.admin</privilege>
+		<privilege>http://tizen.org/privilege/notification</privilege>
+		<privilege>http://tizen.org/privilege/telephony</privilege>
+		<privilege>http://tizen.org/privilege/telephony.admin</privilege>
+		<privilege>http://tizen.org/privilege/tethering.admin</privilege>
+		<privilege>http://tizen.org/privilege/wifidirect</privilege>
+		<privilege>http://tizen.org/privilege/network.set</privilege>
+		<privilege>http://tizen.org/privilege/network.get</privilege>
+		<privilege>http://tizen.org/privilege/packagemanager.info</privilege>
+		<privilege>http://tizen.org/privilege/display</privilege>
+		<privilege>http://tizen.org/privilege/haptic</privilege>
+		<privilege>http://tizen.org/privilege/led</privilege>
+		<privilege>http://tizen.org/privilege/keygrab</privilege>
+		<privilege>http://tizen.org/privilege/window.priority.set</privilege>
+		<privilege>http://tizen.org/privilege/call</privilege>
+		<privilege>http://tizen.org/privilege/mediastorage</privilege>
+	</privileges>
+</manifest>

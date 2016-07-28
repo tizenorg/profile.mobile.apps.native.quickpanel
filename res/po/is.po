@@ -1,0 +1,54 @@
+msgid "IDS_WIFI_POP_BOTH_WI_FI_AND_MOBILE_AP_CANNOT_BE_ACTIVATED_AT_THE_SAME_TIME_DEACTIVATE_MOBILE_AP_Q"
+msgstr "Það er ekki hægt að nota Wi-Fi og farsímaaðgangsstað á sama tíma. Viltu loka farsímaaðgangsstaðnum?"
+
+msgid "IDS_IDLE_MBODY_EMERGENCY_CALLS_ONLY"
+msgstr "Aðeins neyðarsímtöl"
+
+msgid "IDS_IDLE_BODY_NO_SERVICE"
+msgstr "Engin þjónusta"
+
+msgid "IDS_IDLE_BODY_INVALID_SIM_CARD"
+msgstr "Ógilt SIM-kort."
+
+msgid "IDS_QP_HEADER_CLEAR_ALL_ABB"
+msgstr "Hreinsa"
+
+msgid "IDS_QP_BUTTON_NOTIFICATION"
+msgstr "Tilkynning"
+
+msgid "IDS_QP_BUTTON2_VIBRATE"
+msgstr "Titra"
+
+msgid "IDS_QP_BUTTON2_SOUND_ABB"
+msgstr "Hljóð"
+
+msgid "IDS_QP_BUTTON2_MUTE_ABB"
+msgstr "Hljóð-\nlaust"
+
+msgid "IDS_QP_BUTTON2_LOCATION_ABB"
+msgstr "Staður"
+
+msgid "IDS_ST_POP_UNABLE_TO_INCREASE_BRIGHTNESS_FURTHER_BECAUSE_OF_PHONE_OVERHEATING"
+msgstr "Ekki hægt að auka birtastigið meir vegna ofhitnunar í síma."
+
+msgid "IDS_ST_BUTTON2_WI_FI_ABB"
+msgstr "Wi-Fi"
+
+msgid "IDS_ST_BUTTON2_BLUETOOTH_ABB"
+msgstr "Bluetooth"
+
+msgid "IDS_ST_BUTTON2_AUTO_NROTATE"
+msgstr "Sjálfv.\nsnún."
+
+msgid "IDS_COM_BODY_SEARCHING"
+msgstr "Leita"
+
+msgid "IDS_ST_SK_OK"
+msgstr "Í lagi"
+
+msgid "IDS_QP_ACBUTTON_NOTI_SETTINGS_ABB"
+msgstr "TILK. STILLINGAR"
+
+msgid "IDS_LCKSCN_ACBUTTON_CLEAR_ALL"
+msgstr "HREINSA ALLT"
+
