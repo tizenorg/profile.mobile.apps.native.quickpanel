@@ -40,9 +40,73 @@
 #define PACKAGE_SETTING_MENU "setting-profile-efl"
 #define SAM_LOG_FEATURE_SOUND "ST0C"
 
+typedef enum {
+	SP_STATUS_SOUND,
+	SP_STATUS_VIBRATE,
+	SP_STATUS_MUTE
+} qp_sound_status;
+
 static int g_check_press = 0;
 
 static void _mouse_clicked_cb(void *data, Evas_Object *obj, const char *emission, const char *source);
+
+static const qp_sound_status _get_sound_status(void)
+{
+	int ret = -1;
+	int sound_status = 1;
+	int vibration_status = 1;
+
+	ret = vconf_get_bool(VCONFKEY_SETAPPL_SOUND_STATUS_BOOL, &sound_status);
+	if (ret != 0)
+		ERR("failed to get sound status(%d), %s", ret, get_error_message(ret));
+
+	ret = vconf_get_bool(VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL, &vibration_status);
+	if (ret != 0)
+		ERR("failed to get vibration status(%d), %s", ret, get_error_message(ret));
+
+	INFO("sound : %d, vibration : %d", sound_status, vibration_status);
+
+	if (sound_status == 1) {
+		return SP_STATUS_SOUND;
+	} else if (sound_status == 0 && vibration_status == 1) {
+		return SP_STATUS_VIBRATE;
+	}
+
+	return SP_STATUS_MUTE;
+}
+
+static void _set_sound_status(qp_sound_status current_status)
+{
+	int ret = -1;
+	int sound_status = 0;
+	int vibration_status = 0;
+
+	switch (current_status) {
+	case SP_STATUS_SOUND:	// To be VIBRATE
+		INFO("status : SOUND -> VIBRATE ");
+		vibration_status = 1;
+	break;
+
+	case SP_STATUS_VIBRATE:	// To be MUTE
+		INFO("status : VIBRATE-> MUTE");
+	break;
+
+	case SP_STATUS_MUTE:	// To be SOUND
+		INFO("status : MUTE-> SOUND");
+		sound_status = 1;
+	break;
+
+	default:
+		INFO("status : OOPS");
+		return;
+	}
+
+	ret = vconf_set_bool(VCONFKEY_SETAPPL_SOUND_STATUS_BOOL, sound_status);
+	msgif(ret != 0, "failed set VCONFKEY_SETAPPL_SOUND_STATUS_BOOL:%d", ret);
+	ret = vconf_set_bool(VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL, vibration_status);
+	msgif(ret != 0, "failed set VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL:%d", ret);
+}
+
 
 static const char *_label_get(void)
 {
@@ -88,54 +152,36 @@ static void _play_vib_job_cb(void *data)
 static void _view_update(Evas_Object *view, int state, int flag_extra_1, int flag_extra_2)
 {
 	int icon_state;
-	int ret = -1;
-	int sound_status = 1;
-	int vibration_status = 1;
 	Evas_Object *image = NULL;
 	const char *text = NULL;
 	const char *img_path = NULL;
 
 	retif(view == NULL, , "Invalid parameter!");
 
-	/* Get sound status */
-	ret = vconf_get_bool(VCONFKEY_SETAPPL_SOUND_STATUS_BOOL, &sound_status);
-	/* If fail, set sound on status */
-	if (ret != 0) {
-		ERR("failed get VCONFKEY_SETAPPL_SOUND_STATUS_BOOL:%d", ret);
-		sound_status = 1;
-	}
+	qp_sound_status sound_status = _get_sound_status();
 
-	/* Get vibration status */
-	ret = vconf_get_bool(VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL,
-			&vibration_status);
-	/* If fail, set vibration on status */
-	if (ret != 0) {
-		ERR("failed get VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL:%d", ret);
-		vibration_status = 1;
-	}
+	INFO("sound status : %d", sound_status);
 
-	INFO("sound : %d, vibration : %d", sound_status, vibration_status);
+	switch (sound_status) {
 
-	if (sound_status == 1 && vibration_status == 1) {
-		/* Sound & vibration profile */
-		icon_state = ICON_VIEW_STATE_ON;
-		text = _("IDS_QP_BUTTON2_SOUND_ABB");
-		img_path = BUTTON_ICON_SND_HIGHLIGHT;
-	} else if (sound_status == 0 && vibration_status == 1) {
-		/* Vibration profile */
+	case SP_STATUS_VIBRATE:
 		icon_state = ICON_VIEW_STATE_ON;
 		text = _("IDS_QP_BUTTON2_VIBRATE");
 		img_path = BUTTON_ICON_VIB_HIGHLIGHT;
-	} else if (sound_status == 1 && vibration_status == 0) {
-		/*  Sound profile */
-		icon_state = ICON_VIEW_STATE_ON;
-		text = _("IDS_QP_BUTTON2_SOUND_ABB");
-		img_path = BUTTON_ICON_SND_HIGHLIGHT;
-	} else {
-		/*  Mute profile */
+	break;
+
+	case SP_STATUS_MUTE:
 		icon_state = ICON_VIEW_STATE_OFF;
 		text = _("IDS_QP_BUTTON2_MUTE_ABB");
 		img_path = BUTTON_ICON_MUTE_NORMAL;
+	break;
+
+	case SP_STATUS_SOUND:
+	default:
+		icon_state = ICON_VIEW_STATE_ON;
+		text = _("IDS_QP_BUTTON2_SOUND_ABB");
+		img_path = BUTTON_ICON_SND_HIGHLIGHT;
+	break;
 	}
 
 	quickpanel_setting_icon_state_set(view, icon_state);
@@ -144,12 +190,19 @@ static void _view_update(Evas_Object *view, int state, int flag_extra_1, int fla
 	quickpanel_setting_icon_content_set(view, image);
 
 	if (quickpanel_uic_is_opened() && g_check_press) {
-		if (sound_status == 1 && vibration_status == 0) {
+		switch (sound_status) {
+		case SP_STATUS_SOUND:
 			ecore_job_add(_play_snd_job_cb, NULL);
 			g_check_press = 0;
-		} else if (sound_status == 0 && vibration_status == 1) {
+		break;
+
+		case SP_STATUS_VIBRATE:
 			ecore_job_add(_play_vib_job_cb, NULL);
 			g_check_press = 0;
+		break;
+
+		case SP_STATUS_MUTE:
+		break;
 		}
 	}
 }
@@ -165,42 +218,11 @@ static void _status_update(QP_Module_Setting *module, int flag_extra_1, int flag
 
 static void _mouse_clicked_cb(void *data, Evas_Object *obj, const char *emission, const char *source)
 {
-	int ret = 0;
-	int sound_status = 1;
-	int vibration_status = 1;
 	QP_Module_Setting *module = (QP_Module_Setting *)data;
 	retif(module == NULL, , "Invalid parameter!");
 
-	/* Get sound profile */
-	ret = vconf_get_bool(VCONFKEY_SETAPPL_SOUND_STATUS_BOOL,
-			&sound_status);
-	retif(ret != 0, , "failed to get sound status(%d)", ret);
-
-	ret = vconf_get_bool(VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL,
-			&vibration_status);
-	retif(ret != 0, ,"failed to get vibration status(%d)", ret);
-
-	INFO("sound : %d, vibration : %d", sound_status, vibration_status);
-
 	g_check_press = 1;
-
-	if (sound_status == 1 && vibration_status == 1) {
-		ret = vconf_set_bool(VCONFKEY_SETAPPL_SOUND_STATUS_BOOL, 0);
-		msgif(ret != 0, "failed set VCONFKEY_SETAPPL_SOUND_STATUS_BOOL:%d", ret);
-	} else  if (sound_status == 1 && vibration_status == 0) {
-		ret = vconf_set_bool(VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL, 1);
-		msgif(ret != 0, "failed set VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL:%d", ret);
-		ret = vconf_set_bool(VCONFKEY_SETAPPL_SOUND_STATUS_BOOL, 0);
-		msgif(ret != 0, "failed set VCONFKEY_SETAPPL_SOUND_STATUS_BOOL:%d", ret);
-	} else if (sound_status == 0 && vibration_status == 1) {
-		ret = vconf_set_bool(VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL, 0);
-		msgif(ret != 0, "failed set VCONFKEY_SETAPPL_VIBRATION_STATUS_BOOL:%d", ret);
-		/*insert log for mute mode on state */
-		//_log_manager_insert_log(SAM_LOG_FEATURE_SOUND, "MUTE", NULL);
-	} else if (sound_status == 0 && vibration_status == 0) {
-		ret = vconf_set_bool(VCONFKEY_SETAPPL_SOUND_STATUS_BOOL, 1);
-		msgif(ret != 0, "failed set VCONFKEY_SETAPPL_SOUND_STATUS_BOOL:%d", ret);
-	}
+	_set_sound_status(_get_sound_status());
 }
 
 static void _soundprofile_vconf_cb(keynode_t *node, void *data)
@@ -289,14 +311,14 @@ static void _refresh(void *data)
 
 
 QP_Module_Setting sound = {
-	.name 				= "sound",
-	.init				= _init,
-	.fini 				= _fini,
-	.lang_changed 		= _lang_changed,
-	.refresh 			= _refresh,
-	.icon_get 			= _icon_get,
-	.label_get 			= _label_get,
-	.view_update        = _view_update,
+	.name				= "sound",
+	.init					= _init,
+	.fini					= _fini,
+	.lang_changed			= _lang_changed,
+	.refresh				= _refresh,
+	.icon_get				= _icon_get,
+	.label_get			= _label_get,
+	.view_update			= _view_update,
 	.status_update		= _status_update,
 	.handler_longpress		= _long_press_cb,
 	.handler_press		= _mouse_clicked_cb,
