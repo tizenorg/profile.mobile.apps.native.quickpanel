@@ -125,7 +125,7 @@ static void _ui_handler_input_region_set(void *data, int contents_height)
 
 	retif(data == NULL,  , "Invialid parameter!");
 	ad = data;
-	
+
 	region = tzsh_region_create(ad->tzsh);
 
 	switch (ad->angle) {
@@ -732,6 +732,45 @@ static Eina_Bool _ui_refresh_idler_cb(void *data)
 	return EINA_FALSE;
 }
 
+static void _lock_state_changed_cb(system_settings_key_e key, void *user_data)
+{
+	int ret, val;
+
+	DBG(">>> %s", __func__);
+
+	ret = system_settings_get_value_int(key, &val);
+	if (ret != SYSTEM_SETTINGS_ERROR_NONE) {
+		ERR("Failed get value of %s : %d", key, ret);
+		return;
+	}
+
+	if (val == SYSTEM_SETTINGS_LOCK_STATE_UNLOCK) {
+		DBG(">>> %s : unlock !!!", __func__);
+		return;
+	}
+
+	ret = vconf_get_int(VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, &val);
+	if (ret != 0) {
+		ERR("Failed get vconfkey of %s : %d", VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, ret);
+	}
+
+	DBG(">>> Change lock type : %d", val);
+
+	switch (val) {
+	case SETTING_SCREEN_LOCK_TYPE_NONE:
+	case SETTING_SCREEN_LOCK_TYPE_SWIPE:
+		page_secured_lock_signal_emit(0);
+		break;
+	case SETTING_SCREEN_LOCK_TYPE_SIMPLE_PASSWORD:
+	case SETTING_SCREEN_LOCK_TYPE_PASSWORD:
+		page_secured_lock_signal_emit(1);
+		break;
+	default:
+		page_secured_lock_signal_emit(0);
+		break;
+	}
+}
+
 static void _quickpanel_initialize(void *data)
 {
 	int ret = 0;
@@ -765,6 +804,11 @@ static void _quickpanel_initialize(void *data)
 	_ecore_event_init(ad);
 	_vconf_init(ad);
 	_edbus_init(ad);
+
+	ret = system_settings_set_changed_cb(SYSTEM_SETTINGS_KEY_LOCK_STATE, _lock_state_changed_cb, NULL);
+	if (ret != SYSTEM_SETTINGS_ERROR_NONE) {
+		ERR("Failed to set changed cb of SYSTEM_SETTINGS_KEY_LOCK_STATE : %d", ret);
+	}
 
 	quickpanel_uninstall_init(ad);
 #ifdef QP_EMERGENCY_MODE_ENABLE
@@ -832,8 +876,23 @@ static bool _app_create_cb(void *data)
 
 static void _app_service_cb(app_control_h service, void *data)
 {
+	DBG(">>> app_control");
+
 	struct appdata *ad = data;
+	int ret;
+	char *val;
+
 	retif(ad == NULL, , "Invialid parameter!");
+
+	ret = app_control_get_extra_data(service, "aaa", &val);
+	if (ret != APP_CONTROL_ERROR_NONE) {
+		dlog_print(DLOG_ERROR, LOG_TAG, "Failed to app_control_get_extra_data(). Can't get extra data.");
+	}
+	DBG(">>> [%d] %s : val(%s)", __LINE__, __func__, val);
+
+
+	change_quickpnel_state();
+
 
 	if (ad->win == NULL && ad->ly == NULL) {
 		_quickpanel_initialize(data);

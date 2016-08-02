@@ -232,7 +232,78 @@ static int _page_changed_cb(void *event_info, void *data)
 
 	return QP_OK;
 }
+#if 1
+HAPI void change_quickpnel_state(void)
+{
+	Evas_Object *view = s_info.view;
+	int ret, val;
 
+	ret = vconf_get_int(VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, &val);
+	if (ret != 0) {
+		ERR("Failed get vconfkey of %s : %d", VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, ret);
+	}
+
+	DBG("Change lock type : %d", val);
+
+	elm_object_signal_emit(view, "secured_lock.exit", "quickpanel.prog");
+}
+#endif
+HAPI void page_secured_lock_signal_emit(int type)
+{
+	Evas_Object *view = s_info.view;
+
+	switch (type) {
+	case 0:
+		elm_object_signal_emit(view, "secured_lock.exit", "quickpanel.prog");
+		break;
+	case 1:
+		elm_object_signal_emit(view, "secured_lock.exec", "quickpanel.prog");
+		break;
+	default:
+		elm_object_signal_emit(view, "secured_lock.exit", "quickpanel.prog");
+		break;
+	}
+
+}
+#if 0
+static void _lock_type_changed_cb(keynode_t *node, void *data)
+{
+	Evas_Object *view = data;
+	int val;
+
+	if (!node) {
+		int ret;
+		ret = vconf_get_int(vconfkey_setappl_screen_lock_type_int, &val);
+		if (ret != 0) {
+			ERR("Failed get vconfkey of %s : %d", VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, ret);
+		}
+
+	} else {
+		val = node->value.i;
+		DBG(">>> Change lock type : %d", node->value.i);
+	}
+
+
+	DBG("Change lock type : %d", val);
+
+	switch (val) {
+		case SETTING_SCREEN_LOCK_TYPE_NONE:
+		case SETTING_SCREEN_LOCK_TYPE_SWIPE:
+			elm_object_signal_emit(view, "secured_lock.exit", "quickpanel.prog");
+			break;
+		case SETTING_SCREEN_LOCK_TYPE_SIMPLE_PASSWORD:
+		case SETTING_SCREEN_LOCK_TYPE_PASSWORD:
+			//elm_object_part_content_unset(view, "qp.base.list.swallow");
+			elm_object_signal_emit(view, "secured_lock.exec", "quickpanel.prog");
+			/* FIXME : Change string into IDS */
+			//evas_object_layer_set(view, EVAS_LAYER_MAX);
+			break;
+		default:
+			elm_object_signal_emit(view, "secured_lock.exit", "quickpanel.prog");
+			break;
+	}
+}
+#endif
 HAPI Evas_Object *quickpanel_page_base_create(Evas_Object *parent, void *data)
 {
 	Evas_Object *mapbuf = NULL;
@@ -309,6 +380,16 @@ HAPI Evas_Object *quickpanel_page_base_create(Evas_Object *parent, void *data)
 	}
 #endif
 
+	elm_object_part_text_set(view, "qp.base.list.secured.text", "Unlock screen to view content");
+#if 0
+	ret = vconf_notify_key_changed(VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT,
+			_lock_type_changed_cb, view);
+	if (ret != 0) {
+		ERR("Failed to set changed cb : %d", ret);
+	}
+
+	_lock_type_changed_cb(NULL, view);
+#endif
 	return s_info.mapbuf;
 }
 
