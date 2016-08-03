@@ -113,7 +113,6 @@ struct appdata {
 	tzsh_h tzsh;
 	tzsh_quickpanel_service_h quickpanel_service;
 
-	Evas_Object *background;
 	Evas_Object *view_root;
 	Evas_Object *view_page_zero;
 	Evas_Object *ly; //view_base
@@ -170,5 +169,6 @@ typedef struct _QP_Module {
 } QP_Module;
 
 extern void *quickpanel_get_app_data(void);
+extern Elm_Transit *quickpanel_brightness_transparent_background_set(bool on);
 
 #endif				/* __QUICKPANEL_UI_H__ */

@@ -58,6 +58,8 @@ typedef struct _brightness_ctrl_obj {
 	void *data;
 	int level_before;
 	int pos_x;
+	bool is_changing;
+	Elm_Transit *changing_transit;
 
 	Evas_Object *brighntess_slider;
 } brightness_ctrl_obj;
@@ -238,6 +240,18 @@ static void _slider_changed_job_cb(void *data)
 			}
 			_brightness_set_image(value);
 		}
+
+		if(!ctrl_obj->is_changing) {
+			ctrl_obj->is_changing = true;
+			
+			if (ctrl_obj->changing_transit != NULL) {
+				elm_transit_del(ctrl_obj->changing_transit);
+				ctrl_obj->changing_transit = NULL;
+			}
+			
+			ctrl_obj->changing_transit = quickpanel_brightness_transparent_background_set(true);
+			elm_object_signal_emit(_controller_view_get(), "show", "base");
+		}
 	}
 
 
@@ -311,7 +325,16 @@ static void _brightness_slider_drag_start_cb(void *data, Evas_Object *obj, void 
 
 static void _brightness_slider_drag_stop_cb(void *data, Evas_Object *obj, void *event_info)
 {
-	// to do
+	brightness_ctrl_obj *ctrl_obj = data;
+	ctrl_obj->is_changing = false;
+
+	if (ctrl_obj->changing_transit != NULL) {
+		elm_transit_del(ctrl_obj->changing_transit);
+		ctrl_obj->changing_transit = NULL;
+	}
+
+	ctrl_obj->changing_transit = quickpanel_brightness_transparent_background_set(false);
+	elm_object_signal_emit(_controller_view_get(), "hide", "base");
 }
 
 /*!

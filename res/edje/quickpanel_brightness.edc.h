@@ -114,6 +114,16 @@
 					color_class: QP_BACKGROUND_COLOR;
 					visible: QP_THEME_BG_VISIBILITY;
 				}
+				description {
+					state: "show" 0.0;
+					inherit: "default" 0.0;
+					visible: 1;
+				}
+				description {
+					state: "hide" 0.0;
+					inherit: "default" 0.0;
+					visible: 0;
+				}
 			}
 
 			part {
@@ -560,6 +570,20 @@
 					if (get_int(ctnt_shown) == 1)
 					set_state(PART:"elm.swallow.slider", "show", 0.0);
 				}
+			}
+			program{
+				name: "show.base.bg";
+				signal: "show";
+				source: "base";
+				action: STATE_SET "show" 0.0;
+				target: "base";
+			}
+			program{
+				name: "hide.base.bg";
+				signal: "hide";
+				source: "base";
+				action: STATE_SET "hide" 0.0;
+				target: "base";
 			}
 			program{
 				name: "show.bg";
