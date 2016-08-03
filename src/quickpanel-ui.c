@@ -78,6 +78,32 @@ HAPI void *quickpanel_get_app_data(void)
 	return &g_app_data;
 }
 
+HAPI Elm_Transit *quickpanel_brightness_transparent_background_set(bool on)
+{
+	Elm_Transit *transit = elm_transit_add();
+
+	if (on) {
+		elm_transit_object_add(transit, g_app_data.view_root);
+		elm_transit_tween_mode_set(transit, ELM_TRANSIT_TWEEN_MODE_SINUSOIDAL);
+		elm_transit_effect_color_add(transit, 255, 255, 255, 255, 255, 255, 255, 0);
+		elm_transit_duration_set(transit, 0.4);
+		elm_transit_objects_final_state_keep_set(transit, EINA_TRUE);
+		elm_transit_go(transit);
+		return transit;
+	} else {
+		int r, g, b, a;
+		evas_object_color_get(g_app_data.view_root, &r, &g, &b, &a);
+
+		elm_transit_object_add(transit, g_app_data.view_root);
+		elm_transit_tween_mode_set(transit, ELM_TRANSIT_TWEEN_MODE_SINUSOIDAL);
+		elm_transit_effect_color_add(transit, r, g, b, a, 255, 255, 255, 255);
+		elm_transit_duration_set(transit, 0.4);
+		elm_transit_objects_final_state_keep_set(transit, EINA_TRUE);
+		elm_transit_go(transit);
+		return transit;
+	}
+}
+
 /******************************************************************************
  *
  * UI
@@ -439,17 +465,9 @@ static int _ui_gui_create(void *data)
 	evas_object_smart_callback_add(ad->win, "wm,rotation,changed",
 			_ui_rotation_wm_cb, ad);
 
-	ad->background = elm_bg_add(ad->win);
-	if (ad->background  != NULL) {
-		evas_object_size_hint_weight_set(ad->background,
-				EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-		elm_win_resize_object_add(ad->win, ad->background);
-		evas_object_show(ad->background);
-	} else {
-		ERR("failed to create background");
-	}
+	ad->view_root = quickpanel_uic_load_edj(ad->win,
+			DEFAULT_EDJ, "quickpanel/root", 0);
 
-	ad->view_root = quickpanel_uic_load_edj(ad->background, util_get_res_file_path(DEFAULT_EDJ), "quickpanel/root", 0);
 	retif(ad->view_root == NULL, QP_FAIL, "Failed to create main page");
 
 	Evas_Object *pager_scroller = quickpanel_pager_new(ad->view_root, NULL);
