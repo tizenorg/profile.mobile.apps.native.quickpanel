@@ -244,10 +244,10 @@
 									<listOptionValue builtIn="false" value="&quot;${SBI_SYSROOT}/usr/lib/glib-2.0/include&quot;"/>
 								</option>
 								<option id="sbi.gnu.c.compiler.option.frameworks_cflags.core.610695851" name="Tizen-Frameworks-Other-Cflags" superClass="sbi.gnu.c.compiler.option.frameworks_cflags.core" valueType="stringList">
-									<listOptionValue builtIn="false" value="$(TC_COMPILER_MISC)"/>
-									<listOptionValue builtIn="false" value="$(RS_COMPILER_MISC)"/>
+									<listOptionValue builtIn="false" value="${TC_COMPILER_MISC}"/>
+									<listOptionValue builtIn="false" value="${RS_COMPILER_MISC}"/>
 									<listOptionValue builtIn="false" value=" -fPIE"/>
-									<listOptionValue builtIn="false" value="--sysroot=&quot;$(SBI_SYSROOT)&quot;"/>
+									<listOptionValue builtIn="false" value="--sysroot=&quot;${SBI_SYSROOT}&quot;"/>
 									<listOptionValue builtIn="false" value="-mthumb"/>
 								</option>
 								<option id="gnu.c.compiler.option.include.paths.548865700" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
@@ -263,15 +263,14 @@
 								<option defaultValue="false" id="sbi.gnu.cpp.linker.option.shared_flag.core.69493624" name="Linker.Shared" superClass="sbi.gnu.cpp.linker.option.shared_flag.core" valueType="boolean"/>
 								<option defaultValue="false" id="sbi.gnu.cpp.linker.option.noundefined.core.586503206" name="Report unresolved symbol references (-Wl,--no-undefined)" superClass="sbi.gnu.cpp.linker.option.noundefined.core" valueType="boolean"/>
 								<option id="sbi.gnu.cpp.linker.option.frameworks_lflags.core.1984487424" name="Tizen-Frameworks-Other-Lflags" superClass="sbi.gnu.cpp.linker.option.frameworks_lflags.core" valueType="stringList">
-									<listOptionValue builtIn="false" value="$(TC_LINKER_MISC)"/>
-									<listOptionValue builtIn="false" value="$(RS_LINKER_MISC)"/>
+									<listOptionValue builtIn="false" value="${TC_LINKER_MISC}"/>
+									<listOptionValue builtIn="false" value="${RS_LINKER_MISC}"/>
 									<listOptionValue builtIn="false" value="-pie -lpthread "/>
 									<listOptionValue builtIn="false" value="-Xlinker -rpath=&quot;/home/developer/sdk_tools/lib&quot;"/>
-									<listOptionValue builtIn="false" value="--sysroot=&quot;$(SBI_SYSROOT)&quot;"/>
-									<listOptionValue builtIn="false" value="-Xlinker --version-script=&quot;$(PROJ_PATH)/.exportMap&quot;"/>
-									<listOptionValue builtIn="false" value="-L&quot;$(SBI_SYSROOT)/usr/lib&quot;"/>
+									<listOptionValue builtIn="false" value="--sysroot=&quot;${SBI_SYSROOT}&quot;"/>
+									<listOptionValue builtIn="false" value="-Xlinker --version-script=&quot;${PROJ_PATH}/.exportMap&quot;"/>
+									<listOptionValue builtIn="false" value="-L&quot;${SBI_SYSROOT}/usr/lib&quot;"/>
 									<listOptionValue builtIn="false" value="$(RS_LIBRARIES)"/>
-									<listOptionValue builtIn="false" value="-Xlinker -rpath=&quot;/opt/usr/apps/org.tizen.quickpanel/lib&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.paths.1984265159" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/lib}&quot;"/>
@@ -291,7 +290,7 @@
 							<tool id="org.tizen.nativecore.tool.sbi.gnu.archiver.mergelib.1109648020" name="Archive Generator" superClass="org.tizen.nativecore.tool.sbi.gnu.archiver.mergelib"/>
 							<tool id="org.tizen.nativecore.tool.sbi.po.compiler.544652631" name="PO Resource Compiler" superClass="org.tizen.nativecore.tool.sbi.po.compiler"/>
 							<tool id="org.tizen.nativecore.tool.sbi.edc.compiler.1295563375" name="EDC Resource Compiler" superClass="org.tizen.nativecore.tool.sbi.edc.compiler">
-								<option id="sbi.gnu.edc.compiler.option.misc.id.1915405270" name="Image Path (-id)" superClass="sbi.gnu.edc.compiler.option.misc.id" valueType="stringList">
+								<option command="-id " id="sbi.gnu.edc.compiler.option.misc.id.1915405270" name="Image Path (-id)" superClass="sbi.gnu.edc.compiler.option.misc.id" valueType="stringList">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}/edje/images&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}/res/images&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}}/res/images_icon&quot;"/>
@@ -299,9 +298,12 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="org.tizen.nativecore.config.sbi.gcc45.app.debug.780449129.1693965713" name="quickpanel_theme_progressbar.edc" rcbsApplicability="disable" resourcePath="res/edje/quickpanel_theme_progressbar.edc" toolsToInvoke="org.tizen.nativecore.tool.sbi.edc.compiler.1295563375.67640330">
+						<tool id="org.tizen.nativecore.tool.sbi.edc.compiler.1295563375.67640330" name="EDC Resource Compiler" superClass="org.tizen.nativecore.tool.sbi.edc.compiler.1295563375"/>
+					</fileInfo>
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="inc"/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="res"/>
+						<entry excluding="edje/quickpanel_theme_slider.edc|edje/quickpanel_theme_progressbar.edc|edje/quickpanel_setting.edc|edje/quickpanel_page_setting_all.edc|edje/quickpanel_listitem_ongoing.edc|edje/quickpanel_listitem_noti.edc|edje/quickpanel_images.edc|edje/quickpanel_noti_section.edc|edje/quickpanel_minictrl.edc|edje/quickpanel_datetime.edc|edje/quickpanel_brightness.edc|edje/quickpanel_animated_icon.edc" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="res"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="shared"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
@@ -618,5 +620,12 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/quickpanel"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/quickpanel"/>
+		</configuration>
+	</storageModule>
 </cproject>

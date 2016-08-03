@@ -490,7 +490,7 @@ HAPI Evas_Object *quickpanel_pager_new(Evas_Object *parent, void *data)
 			evas_object_del(scroller);
 			scroller = NULL;
 		}
-		return EINA_FALSE;
+		return NULL;
 	}
 	evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_fill_set(box, EVAS_HINT_FILL, EVAS_HINT_FILL);

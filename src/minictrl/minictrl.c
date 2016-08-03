@@ -465,7 +465,7 @@ static Evas_Object *_minictrl_create_view(struct appdata *ad, const char *name)
 		return NULL;
 	}
 
-	elm_layout_file_set(layout, DEFAULT_EDJ, "quickpanel/minictrl/default");
+	elm_layout_file_set(layout, util_get_res_file_path(DEFAULT_EDJ), "quickpanel/minictrl/default");
 	evas_object_size_hint_weight_set(layout, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 	evas_object_size_hint_align_set(layout, EVAS_HINT_FILL, EVAS_HINT_FILL);
 	evas_object_show(layout);
@@ -482,6 +482,7 @@ static Evas_Object *_minictrl_create_view(struct appdata *ad, const char *name)
 	evas_object_event_callback_add(viewer, EVAS_CALLBACK_MOUSE_DOWN, _mouse_down_cb, ad);
 	evas_object_event_callback_add(viewer, EVAS_CALLBACK_MOUSE_MOVE, _mouse_move_cb, ad);
 	evas_object_event_callback_add(viewer, EVAS_CALLBACK_MOUSE_UP, _mouse_up_cb, ad);
+
 
 	focus = quickpanel_accessibility_ui_get_focus_object(layout);
 	elm_object_part_content_set(layout, "focus", focus);

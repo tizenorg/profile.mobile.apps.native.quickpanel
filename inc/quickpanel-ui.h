@@ -27,6 +27,7 @@
 #  define EDJDIR	"edje"
 #  define RESDIR	"res"
 
+
 #if !defined(QP_SCREENREADER_ENABLE)
 	#define QP_SCREENREADER_ENABLE
 #endif

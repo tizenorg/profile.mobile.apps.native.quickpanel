@@ -347,10 +347,8 @@ HAPI int quickpanel_setting_module_dpm_state_get(char *module_name, int *state) 
 
 	if (strncmp(module_name, "gps", strlen(module_name)) == 0) {
 		ret = dpm_restriction_get_location_state(policy, &dpm_state);
-#ifdef PRIVATE_ROOT_STRAP
 	} else if (strncmp(module_name, "bluetooth", strlen(module_name)) == 0) {
 		ret = dpm_restriction_get_bluetooth_mode_change_state(policy, &dpm_state);
-#endif
 	} else if (strncmp(module_name,"wifi", strlen(module_name)) == 0) {
 		ret = dpm_restriction_get_wifi_state(policy, &dpm_state);
 	}

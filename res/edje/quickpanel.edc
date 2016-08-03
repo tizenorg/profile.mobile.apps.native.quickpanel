@@ -527,13 +527,13 @@ collections {
 		}
 	}
 
-#include "quickpanel_setting.edc.h"
-#include "quickpanel_datetime.edc.h"
-#include "quickpanel_brightness.edc.h"
-#include "quickpanel_minictrl.edc.h"
-#include "quickpanel_noti_section.edc.h"
-#include "quickpanel_listitem_noti.edc.h"
-#include "quickpanel_listitem_ongoing.edc.h"
-#include "quickpanel_animated_icon.edc.h"
-#include "quickpanel_images.edc.h"
+#include "quickpanel_setting.edc"
+#include "quickpanel_datetime.edc"
+#include "quickpanel_brightness.edc"
+#include "quickpanel_minictrl.edc"
+#include "quickpanel_noti_section.edc"
+#include "quickpanel_listitem_noti.edc"
+#include "quickpanel_listitem_ongoing.edc"
+#include "quickpanel_animated_icon.edc"
+#include "quickpanel_images.edc"
 }

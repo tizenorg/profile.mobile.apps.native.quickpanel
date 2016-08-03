@@ -194,7 +194,7 @@ HAPI Evas_Object *quickpanel_setting_icon_new(Evas_Object *parent)
 	retif(parent == NULL, NULL, "invalid parameter");
 
 	struct appdata *ad = quickpanel_get_app_data();
-	retif(ad == NULL, EINA_FALSE, "invalid data.");
+	retif(ad == NULL, NULL, "invalid data.");
 
 	icon = elm_layout_add(parent);
 	retif(!icon, NULL, "fail to add layout");

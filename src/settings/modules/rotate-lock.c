@@ -61,16 +61,18 @@ static const char *_icon_get(qp_setting_icon_image_type type)
 
 static void _long_press_cb(void *data)
 {
-#ifdef PACKAGE_SETTING_MENU
+
 	bundle *kb = bundle_create();
 	if (kb != NULL) {
 		bundle_add(kb, "viewtype", "main");
+
 		quickpanel_setting_icon_handler_longpress(PACKAGE_SETTING_MENU, kb);
+
 		bundle_free(kb);
 	} else {
 		ERR("failed to create the bunlde");
 	}
-#endif
+
 }
 
 static void _view_update(Evas_Object *view, int state, int flag_extra_1, int flag_extra_2)

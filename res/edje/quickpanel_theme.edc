@@ -15,7 +15,6 @@
  *
  */
 
-
 #include "../../inc/quickpanel_def.h"
 
 collections {
@@ -25,6 +24,6 @@ collections {
 #define PROCESS_MEDIUM_IMAGE_HEIGHT_INC 36
 #define PROCESS_MEDIUM_IMAGE_COLOR	"AO008"
 
-#include "quickpanel_theme_progressbar.edc.h"
-#include "quickpanel_theme_slider.edc.h"
+#include "quickpanel_theme_progressbar.edc"
+#include "quickpanel_theme_slider.edc"
 }

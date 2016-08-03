@@ -771,38 +771,6 @@ static inline char *_get_text(notification_h noti, notification_text_type_e text
 	return NULL;
 }
 
-#ifdef QP_SCREENREADER_ENABLE
-static inline void _strbuf_add(Eina_Strbuf *str_buf, char *text, const char *delimiter)
-{
-	if (text != NULL) {
-		if (strlen(text) > 0) {
-			if (delimiter != NULL) {
-				eina_strbuf_append(str_buf, delimiter);
-			}
-			eina_strbuf_append(str_buf, text);
-		}
-	}
-}
-
-static inline void _check_and_add_to_buffer(Eina_Strbuf *str_buf, char *text, int is_check_phonenumber)
-{
-	char buf_number[QP_UTIL_PHONE_NUMBER_MAX_LEN * 2] = { 0, };
-
-	if (text != NULL) {
-		if (strlen(text) > 0) {
-			if (quickpanel_common_util_is_phone_number(text) && is_check_phonenumber) {
-				quickpanel_common_util_phone_number_tts_make(buf_number, text,
-						(QP_UTIL_PHONE_NUMBER_MAX_LEN * 2) - 1);
-				eina_strbuf_append(str_buf, buf_number);
-			} else {
-				eina_strbuf_append(str_buf, text);
-			}
-			eina_strbuf_append_char(str_buf, '\n');
-		}
-	}
-}
-#endif
-
 static void _activenoti_set_text(notification_h noti, int is_screenreader)
 {
 	char *domain = NULL;

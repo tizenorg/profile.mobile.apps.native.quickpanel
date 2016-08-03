@@ -465,8 +465,7 @@ static int _ui_gui_create(void *data)
 	evas_object_smart_callback_add(ad->win, "wm,rotation,changed",
 			_ui_rotation_wm_cb, ad);
 
-	ad->view_root = quickpanel_uic_load_edj(ad->win,
-			DEFAULT_EDJ, "quickpanel/root", 0);
+	ad->view_root = quickpanel_uic_load_edj(ad->win, util_get_res_file_path(DEFAULT_EDJ), "quickpanel/root", 0);
 
 	retif(ad->view_root == NULL, QP_FAIL, "Failed to create main page");
 

@@ -70,14 +70,12 @@ static const char *_icon_get(qp_setting_icon_image_type type)
 
 static void _long_press_cb(void *data)
 {
-#ifdef PACKAGE_SETTING_MENU
 	if (quickpanel_common_ui_is_package_exist(PACKAGE_SETTING_MENU)) {
 		quickpanel_setting_icon_handler_longpress(PACKAGE_SETTING_MENU, NULL);
 	} else {
 		DBG("No package[%s] try[%s]", PACKAGE_SETTING_MENU, PACKAGE_SETTING_MENU_PTN);
 		quickpanel_setting_icon_handler_longpress(PACKAGE_SETTING_MENU_PTN, NULL);
 	}
-#endif
 }
 
 static void _view_update(Evas_Object *view, int state, int flag_extra_1, int flag_extra_2)

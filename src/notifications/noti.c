@@ -1086,7 +1086,7 @@ static int _resume(void *data)
 	retif(ad == NULL, QP_FAIL, "Invalid parameter!");
 
 	if (ad->list != NULL && s_info.noti_node != NULL) {
-		if (quickpanel_noti_node_get_item_count(s_info.noti_node, QP_ITEM_TYPE_ONGOING_NOTI) > 0) {
+		if (quickpanel_noti_node_get_item_count(s_info.noti_node, NOTIFICATION_TYPE_ONGOING) > 0) {
 			if (s_info.noti_node->table != NULL) {
 				g_hash_table_foreach(s_info.noti_node->table, _noti_node_ongoing_update_cb, ad->list);
 			}

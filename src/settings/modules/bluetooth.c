@@ -61,9 +61,7 @@ static const char *_icon_get(qp_setting_icon_image_type type)
 
 static void _long_press_cb(void *data)
 {
-#ifdef PACKAGE_SETTING_MENU
 	quickpanel_setting_icon_handler_longpress(PACKAGE_SETTING_MENU, NULL);
-#endif
 }
 
 static void _view_update(Evas_Object *view, int state, int flag_extra_1, int flag_extra_2)
