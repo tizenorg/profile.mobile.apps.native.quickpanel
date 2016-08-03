@@ -57,6 +57,7 @@ extern Noti_View_H ongoing_noti_view_h;
 #define THRESHOLD_DELETE_START 80
 #define THRESHOLD_DELETE_START_Y_LIMIT 60
 #define THRESHOLD_DISTANCE (300)
+#define MAX_DRAG_X_DISTANCE_FOR_ONGOING_NOTI 60
 
 static struct _info {
 	int item_debug_step;
@@ -251,13 +252,14 @@ static void _mouse_move_cb(void* data, Evas* e, Evas_Object* obj, void* event_in
 		s_info.item_debug_step = 2;
 	}
 
-	if (handler->state == NOTILISTITEM_STATE_NORMAL && _is_item_deletable_by_gesture(handler) == 1) {
+	if (handler->state == NOTILISTITEM_STATE_NORMAL) {
 		if (abs(delta_x) >= THRESHOLD_DELETE_START) {
 			DBG("start a deletion");
 			handler->state = NOTILISTITEM_STATE_GETSTURE_WAIT;
 
 			vi_start_x = delta_x;
 
+			if (_is_item_deletable_by_gesture(handler) == 1) {
 			vi = quickpanel_vi_new_with_data(
 					VI_OP_DELETE,
 					QP_ITEM_TYPE_NOTI,
@@ -274,13 +276,31 @@ static void _mouse_move_cb(void* data, Evas* e, Evas_Object* obj, void* event_in
 			handler->vi = vi;
 			handler->need_to_cancel_press = 1;
 			quickpanel_vi_user_event_add(vi);
+			} else {
+				/* It is need to ignore callback function one time when release touch. Because after touch and move over threshold, available action is  the delete only. */
+				handler->need_to_cancel_press = 1;
+			}
 		}
 	} else if (handler->state == NOTILISTITEM_STATE_GETSTURE_WAIT) {
 		if (delta_prev != delta_x) {
 			map = evas_map_new(4);
 			if (map != NULL) {
 				evas_map_util_points_populate_from_object(map, obj);
+
+				if (_is_item_deletable_by_gesture(handler) == 1) {
 				evas_map_util_points_populate_from_geometry(map, x + delta_x - vi_start_x, y, w, h, 0);
+				} else {
+					/* Ongoing Noti Case, limit drag position*/
+					int diff = delta_x - vi_start_x;
+
+					if (diff > MAX_DRAG_X_DISTANCE_FOR_ONGOING_NOTI)
+						diff = MAX_DRAG_X_DISTANCE_FOR_ONGOING_NOTI;
+					else if (diff < -MAX_DRAG_X_DISTANCE_FOR_ONGOING_NOTI)
+						diff = -MAX_DRAG_X_DISTANCE_FOR_ONGOING_NOTI;
+
+					evas_map_util_points_populate_from_geometry(map, x + diff, y, w, h, 0);
+				}
+
 				evas_object_map_enable_set(obj, EINA_TRUE);
 				evas_object_map_set(obj, map);
 				evas_map_free(map);
