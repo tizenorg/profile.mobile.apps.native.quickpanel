@@ -233,6 +233,22 @@ static int _page_changed_cb(void *event_info, void *data)
 	return QP_OK;
 }
 
+HAPI void quickpanel_page_secured_lock_set(qp_secured_lock_state_e state)
+{
+	Evas_Object *view = s_info.view;
+
+	switch (state) {
+	case QP_SECURED_LOCK_ON:
+		elm_object_signal_emit(view, "secured_lock.exec", "quickpanel.prog");
+		break;
+	case QP_SECURED_LOCK_OFF:
+	default:
+		elm_object_signal_emit(view, "secured_lock.exit", "quickpanel.prog");
+		break;
+	}
+
+}
+
 HAPI Evas_Object *quickpanel_page_base_create(Evas_Object *parent, void *data)
 {
 	Evas_Object *mapbuf = NULL;
@@ -308,6 +324,8 @@ HAPI Evas_Object *quickpanel_page_base_create(Evas_Object *parent, void *data)
 		quickpanel_page_scroll_freeze_set(EINA_TRUE);
 	}
 #endif
+
+	elm_object_part_text_set(view, "qp.base.list.secured.text", "Unlock screen to view content");
 
 	return s_info.mapbuf;
 }

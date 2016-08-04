@@ -66,12 +66,21 @@
 
 #define QP_WINDOW_PRIO 300
 
+// TODO : Due to not ready of the Secured Lockscreen, hide secured feature implementation.
+//#define _SECURED_LOCKSCREEN
+
 static struct appdata g_app_data;
 
 static void _ui_rotate(void *data, int new_angle);
 static void _ui_geometry_info_set(void *data);
 static void _ui_handler_info_set(void *data);
 static void _ui_efl_cache_flush(void *evas);
+
+#ifdef _SECURED_LOCKSCREEN
+static void _change_state_on_secured_lock(void);
+qp_secured_lock_state_e secured_lock = QP_SECURED_LOCK_OFF;
+static const char *APP_CONTROL_OPERATION_SECURED_LOCK = "http://tizen.org/appcontrol/operation/secured_lock";
+#endif
 
 HAPI void *quickpanel_get_app_data(void)
 {
@@ -151,7 +160,7 @@ static void _ui_handler_input_region_set(void *data, int contents_height)
 
 	retif(data == NULL,  , "Invialid parameter!");
 	ad = data;
-	
+
 	region = tzsh_region_create(ad->tzsh);
 
 	switch (ad->angle) {
@@ -571,6 +580,59 @@ static void _vconf_event_lcdoff_cb(keynode_t *node,
 	}
 }
 
+#ifdef _SECURED_LOCKSCREEN
+static void _lock_type_changed_cb(keynode_t *node, void *data)
+{
+	int ret = -1, type = 0;
+
+	if (node == NULL) {
+		ret = vconf_get_int(VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, &type);
+		if (ret != 0) {
+			ERR("Failed to get int of %s (%d), %s", VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, ret, get_error_message(ret));
+		}
+	} else {
+		type = node->value.i;
+	}
+
+	DBG("Change lock type : %d", type);
+
+	switch (type) {
+	case SETTING_SCREEN_LOCK_TYPE_NONE:
+	case SETTING_SCREEN_LOCK_TYPE_SWIPE:
+		secured_lock = QP_SECURED_LOCK_OFF;
+		quickpanel_page_secured_lock_set(secured_lock);
+		break;
+	case SETTING_SCREEN_LOCK_TYPE_SIMPLE_PASSWORD:
+	case SETTING_SCREEN_LOCK_TYPE_PASSWORD:
+	default:
+		secured_lock = QP_SECURED_LOCK_ON;
+		quickpanel_page_secured_lock_set(secured_lock);
+		break;
+	}
+}
+#endif
+
+#ifdef _SECURED_LOCKSCREEN
+static void _change_state_on_secured_lock(void)
+{
+	int ret, val;
+
+	ret = system_settings_get_value_int(SYSTEM_SETTINGS_KEY_LOCK_STATE, &val);
+	if (ret != SYSTEM_SETTINGS_ERROR_NONE) {
+		ERR("Failed get value of %s : %d", SYSTEM_SETTINGS_KEY_LOCK_STATE, ret);
+		return;
+	}
+
+	if (val == SYSTEM_SETTINGS_LOCK_STATE_UNLOCK) {
+		if (secured_lock == QP_SECURED_LOCK_OFF) {
+			return;
+		} else {
+			quickpanel_page_secured_lock_set(QP_SECURED_LOCK_OFF);
+			return;
+		}
+	}
+}
+#endif
 
 void _event_message_cb(void *data, Evas_Object *obj, void *event_info)
  {
@@ -585,6 +647,10 @@ void _event_message_cb(void *data, Evas_Object *obj, void *event_info)
 		quickpanel_keyboard_openning_init(ad);
 		quickpanel_modules_opened(data);
 		quickpanel_uic_opened_reason_set(OPENED_NO_REASON);
+
+#ifdef _SECURED_LOCKSCREEN
+		_change_state_on_secured_lock();
+#endif
 	} else {
 		DBG("quickpanel is closed");
 
@@ -611,6 +677,15 @@ static void _vconf_init(struct appdata *ad)
 	if (ret != 0) {
 		ERR("VCONFKEY_PM_STATE: %d", ret);
 	}
+
+#ifdef _SECURED_LOCKSCREEN
+	ret = vconf_notify_key_changed(VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, _lock_type_changed_cb, ad);
+	if (ret != 0) {
+		ERR("Failed to set changed callback of %s (%d), %s", VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, ret, get_error_message(ret));
+	}
+
+	_lock_type_changed_cb(NULL, NULL);
+#endif
 }
 
 static void _vconf_fini(struct appdata *ad)
@@ -628,6 +703,13 @@ static void _vconf_fini(struct appdata *ad)
 	if (ret != 0) {
 		ERR("VCONFKEY_PM_STATE: %d", ret);
 	}
+
+#ifdef _SECURED_LOCKSCREEN
+	ret = vconf_ignore_key_changed(VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, _lock_type_changed_cb);
+	if (ret != 0) {
+		ERR("Failed to remove changed callback of %s (%d), %s", VCONFKEY_SETAPPL_SCREEN_LOCK_TYPE_INT, ret, get_error_message(ret));
+	}
+#endif
 }
 
 static void _edbus_init(struct appdata *ad)
@@ -850,7 +932,23 @@ static bool _app_create_cb(void *data)
 static void _app_service_cb(app_control_h service, void *data)
 {
 	struct appdata *ad = data;
+
 	retif(ad == NULL, , "Invialid parameter!");
+#ifdef	_SECURED_LOCKSCREEN
+	int ret;
+	char *op;
+
+	ret = app_control_get_operation(service, &op);
+	if (ret != APP_CONTROL_ERROR_NONE) {
+		dlog_print(DLOG_ERROR, LOG_TAG, "Failed to app_control_get_operation");
+	}
+
+	INFO("[%d] %s : operation(%s)", __LINE__, __func__, op);
+
+	if (!strncmp(APP_CONTROL_OPERATION_SECURED_LOCK, op, strlen(APP_CONTROL_OPERATION_SECURED_LOCK))) {
+		quickpanel_page_secured_lock_set(QP_SECURED_LOCK_OFF);
+	}
+#endif
 
 	if (ad->win == NULL && ad->ly == NULL) {
 		_quickpanel_initialize(data);
@@ -909,7 +1007,6 @@ static void _app_pause_cb(void *data)
 	struct appdata *ad = data;
 	retif(ad == NULL,, "invalid data.");
 
-
 	quickpanel_modules_suspend(ad);
 
 	ad->is_suspended = 1;
@@ -918,6 +1015,11 @@ static void _app_pause_cb(void *data)
 		_ui_efl_cache_flush(ad->evas);
 		evas_event_feed_mouse_cancel(ad->evas, ecore_time_get(), NULL);
 	}
+#ifdef _SECURED_LOCKSCREEN
+	if (secured_lock == QP_SECURED_LOCK_ON) {
+		quickpanel_page_secured_lock_set(secured_lock);
+	}
+#endif
 }
 
 static void _app_language_changed_cb(app_event_info_h event_info, void *data)
