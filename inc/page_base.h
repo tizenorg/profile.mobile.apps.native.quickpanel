@@ -22,5 +22,6 @@
 extern Evas_Object *quickpanel_page_base_create(Evas_Object *parent, void *data);
 extern Evas_Object *quickpanel_page_base_view_get(const char *view_name);
 extern void quickpanel_page_base_focus_allow_set(Eina_Bool is_enable);
+extern void page_secured_lock_signal_emit(qp_secured_lock_state_e state);
 
 #endif

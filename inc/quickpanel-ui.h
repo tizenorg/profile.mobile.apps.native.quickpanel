@@ -169,6 +169,11 @@ typedef struct _QP_Module {
 	Eina_Bool state;
 } QP_Module;
 
+typedef enum {
+	QP_SECURED_LOCK_OFF,
+	QP_SECURED_LOCK_ON
+} qp_secured_lock_state_e;
+
 extern void *quickpanel_get_app_data(void);
 extern Elm_Transit *quickpanel_brightness_transparent_background_set(bool on);
 
